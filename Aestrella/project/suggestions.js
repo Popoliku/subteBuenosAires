@@ -21,6 +21,7 @@ function setupAutocomplete(inputId, suggestionsId) {
     const input = document.getElementById(inputId);
     const suggestionsBox = document.getElementById(suggestionsId);
     console.log(suggestionsBox); // Should log the input element
+    
 
     console.log("HIHI");
     input.addEventListener('input', handler)
@@ -40,7 +41,7 @@ function setupAutocomplete(inputId, suggestionsId) {
             const suggestionDiv = document.createElement('div');
             suggestionDiv.textContent = station;
             suggestionDiv.classList.add(
-                'px-4', 'py-2', 'cursor-pointer', 'hover:bg-gray-300', 'w-300'
+                'px-4', 'py-2', 'cursor-pointer', 'hover:bg-gray-300', 'w-300', 'suggestion-slide'
             );
 
             suggestionDiv.addEventListener('click', () => {

@@ -35,11 +35,77 @@
                 opacity: 1;
             }
         }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .container-animation {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .suggestion-slide {
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .map-zoom {
+            animation: zoomIn 1s ease-out;
+        }
+
+
+        @keyframes backgroundMove {
+            from {
+                background-position: 25% 25%;
+            }
+
+            to {
+                background-position: 50% 50%;
+            }
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+                url('mapa.webp') center/cover no-repeat;
+            animation: backgroundMove 40s cubic-bezier(.66,.3,.41,.97)infinite alternate;
+        }
     </style>
 </head>
 
 <body class="flex h-screen justify-center items-center">
-    <div class="bg-white bg-opacity-90 shadow-lg rounded-xl p-8 max-w-screen-md w-full">
+    <div class="bg-white bg-opacity-90 shadow-lg rounded-xl p-8 max-w-screen-md w-full container-animation">
         <h1 class="text-4xl font-extrabold text-center text-blue-700 mb-6">Metro de Buenos Aires Path Finder</h1>
 
         <div class="space-y-6">
@@ -83,7 +149,7 @@
         <h3 id="result" class="text-xl font-medium text-center text-gray-900 mt-6"></h3>
 
         <!-- Map -->
-        <div id="map" class="h-[450px] rounded-xl shadow-3xl mt-6 border border-gray-300 z-10"></div>
+        <div id="map" class="h-[450px] rounded-xl shadow-3xl mt-6 border border-gray-300 z-10 map-zoom"></div>
     </div>
     </div>
 
