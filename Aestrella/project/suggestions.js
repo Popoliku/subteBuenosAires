@@ -25,7 +25,8 @@ function setupAutocomplete(inputId, suggestionsId) {
     console.log("HIHI");
     input.addEventListener('input', handler)
     input.addEventListener('click', handler)
-    function handler(){
+
+    function handler() {
         const query = input.value.toLowerCase();
         suggestionsBox.innerHTML = '';
         // console.log("HIHIs");
@@ -45,6 +46,8 @@ function setupAutocomplete(inputId, suggestionsId) {
             suggestionDiv.addEventListener('click', () => {
                 input.value = station;
                 suggestionsBox.innerHTML = '';
+                const event = new Event('input', { bubbles: true });
+                input.dispatchEvent(event);
             });
 
             suggestionsBox.appendChild(suggestionDiv);

@@ -28,16 +28,22 @@
 
         <div class="space-y-6">
             <div class="relative w-full">
-                <label for="start" class="block text-lg font-medium text-gray-700">Estación de comienzo:</label>
+                <label for="start" class="block text-lg font-medium text-gray-700">
+                    Estación de comienzo:
+                    
+                    <span class="inline-block w-4 h-4 ml-2 bg-green-700 rounded-full"></span>
+                    </label>
                 <input type="text" id="start" placeholder="Estación de comienzo"
                     class="mt-2 p-4 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-lg">
                 <div id="startSuggestions"
-                    class="absolute  top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
+                    class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
                 </div>
             </div>
 
             <div class="relative w-full">
-                <label for="end" class="block text-lg font-medium text-gray-700">Estación de llegada:</label>
+                <label for="end" class="block text-lg font-medium text-gray-700">Estación de llegada:     <span class="inline-block w-4 h-4 ml-2 bg-blue-900 rounded-full"></span>
+</label>
+               
                 <input type="text" id="end" placeholder="Estación de llegada"
                     class="relative mt-2 p-4 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-lg ">
                 <div id="endSuggestions"
