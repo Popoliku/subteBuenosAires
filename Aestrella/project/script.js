@@ -8,7 +8,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         document.getElementById("result").innerText = "Introduzca el trayecto";
         return;
     }
-    
+
     if (!startStation) {
         document.getElementById("result").innerText = "Introduzca estacion de inicio";
         return;
@@ -147,21 +147,20 @@ const customDivIcon = L.divIcon({
 
 estaciones.forEach(estacion => {
     const marker = L.marker([estacion.lat,estacion.long], { icon: customDivIcon }).addTo(map).bindPopup("Custom Div Icon Marker");
-    
     marker.bindPopup(estacion.estacion);
 });
 
 
 
 const route = [
-    [estaciones[0].lat,estaciones[0].long], 
-    [estaciones[1].lat,estaciones[1].long], 
-    [estaciones[2].lat,estaciones[2].long], 
-    [estaciones[3].lat,estaciones[3].long], 
-    [estaciones[4].lat,estaciones[4].long], 
-    [estaciones[5].lat,estaciones[5].long], 
-    [estaciones[6].lat,estaciones[6].long], 
-    
+    [estaciones[0].lat,estaciones[0].long],
+    [estaciones[1].lat,estaciones[1].long],
+    [estaciones[2].lat,estaciones[2].long],
+    [estaciones[3].lat,estaciones[3].long],
+    [estaciones[4].lat,estaciones[4].long],
+    [estaciones[5].lat,estaciones[5].long],
+    [estaciones[6].lat,estaciones[6].long],
+
 ];
 L.polyline(route, { color: 'red' , weight: 5}).addTo(map);
 

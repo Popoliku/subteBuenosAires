@@ -1,34 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metro Path Finder</title>
-    <link rel="stylesheet" href="style.css">
 
-    <!-- para el mapa interactivo -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <style>
+        /* Custom background */
+        body {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+                url('mapa.webp') center/cover no-repeat;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Metro de Buenos Aires Path Finder</h1>
-        <label for="start">Estacion de comienzo: </label>
-        <input type="text" id="start" placeholder="Estacion de comienzo">
-        
-        <label for="end">Estacion de llegada:</label>
-        <input type="text" id="end" placeholder="Estacion de llegada">
-        
-        <button id="findPathBtn">Calcular Ruta</button>
-        
-        <h3 id="result"></h3>
 
-        <div id="map" style="height: 500px;"></div>
+<body class="flex h-screen justify-center items-center">
+    <div class="bg-white bg-opacity-90 shadow-lg rounded-xl p-8 max-w-screen-md w-full">
+        <h1 class="text-4xl font-extrabold text-center text-blue-700 mb-6">Metro de Buenos Aires Path Finder</h1>
 
-       
+        <div class="space-y-6">
+            <div class="relative w-full">
+                <label for="start" class="block text-lg font-medium text-gray-700">Estación de comienzo:</label>
+                <input type="text" id="start" placeholder="Estación de comienzo"
+                    class="mt-2 p-4 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-lg">
+                <div id="startSuggestions"
+                    class="absolute  top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
+                </div>
+            </div>
+
+            <div class="relative w-full">
+                <label for="end" class="block text-lg font-medium text-gray-700">Estación de llegada:</label>
+                <input type="text" id="end" placeholder="Estación de llegada"
+                    class="relative mt-2 p-4 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-lg ">
+                <div id="endSuggestions"
+                    class="absolute  top-full left-0 right-0 bg-white shadow-lg border border-gray-300 rounded-lg max-h-32 overflow-y-auto z-40">
+                </div>
+                <!-- class="stations absolute top-full left-0 right-0 bg-white shadow-lg border border-gray-300 rounded-lg mt-1 max-h-60 overflow-y-auto z-50"></div> -->
+
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="mt-6">
+            <button id="findPathBtn"
+                class="w-full py-3 bg-blue-700 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-800 transition transform hover:scale-105 text-lg">
+                Calcular Ruta
+            </button>
+        </div>
+
+        <!-- Result -->
+        <h3 id="result" class="text-xl font-medium text-center text-gray-900 mt-6"></h3>
+
+        <!-- Map -->
+        <div id="map" class="h-[450px] rounded-xl shadow-3xl mt-6 border border-gray-300 z-10"></div>
     </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="suggestions.js">
+
+    </script>
 </body>
+
 </html>
