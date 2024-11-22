@@ -64,7 +64,7 @@ const estaciones = [
     { "long": -58.3801736105, "lat": -34.6181255993, "id": 18.0, "estacion": "INDEPENDENCIA", "linea": "C" },
     { "long": -58.3814344339, "lat": -34.6276194523, "id": 19.0, "estacion": "CONSTITUCION", "linea": "C" },
     { "long": -58.3750715183, "lat": -34.6032972856, "id": 20.0, "estacion": "FLORIDA", "linea": "B" },
-    { "long": -58.3807148471, "lat": -34.6036371052, "id": 21.0, "estacion": "C. PELLEGRINI", "linea": "B" },
+    { "long": -58.3807148471, "lat": -34.6036371052, "id": 21.0, "estacion": "CARLOS PELLEGRINI", "linea": "B" },
     { "long": -58.3872961335, "lat": -34.6040935531, "id": 22.0, "estacion": "URUGUAY", "linea": "B" },
     { "long": -58.3923142351, "lat": -34.6044195429, "id": 23.0, "estacion": "CALLAO - MAESTRO ALFREDO BRAVO", "linea": "B" },
     { "long": -58.3994742567, "lat": -34.6046429679, "id": 24.0, "estacion": "PASTEUR", "linea": "B" },
@@ -74,7 +74,7 @@ const estaciones = [
     { "long": -58.4312738603, "lat": -34.6021622293, "id": 28.0, "estacion": "ANGEL GALLARDO", "linea": "B" },
     { "long": -58.4397714984, "lat": -34.5989673642, "id": 29.0, "estacion": "MALABIA - OSVALDO PUGLIESE", "linea": "B" },
     { "long": -58.4475730925, "lat": -34.5917181536, "id": 30.0, "estacion": "DORREGO", "linea": "B" },
-    { "long": -58.3742677264, "lat": -34.6085590739, "id": 31.0, "estacion": "PERU", "linea": "A" },
+    { "long": -58.3742677264, "lat": -34.6085590739, "id": 31.0, "estacion": "PERÚ", "linea": "A" },
     { "long": -58.3790851531, "lat": -34.6088817212, "id": 32.0, "estacion": "PIEDRAS", "linea": "A" },
     { "long": -58.382232401, "lat": -34.6090998066, "id": 33.0, "estacion": "LIMA", "linea": "A" },
     { "long": -58.3867771941, "lat": -34.6094125865, "id": 34.0, "estacion": "SAENZ PE\u00d1A", "linea": "A" },
@@ -185,13 +185,14 @@ function handler(inputField, markerGroup, color) {
     if (matchedStation) {
         console.log(`Station found: ${matchedStation.estacion}`);
         const selected = L.divIcon({
-            className: 'custom-div-icon',
-            html: `<div class="rounded-full ${color}" style="width: 20px; height: 20px;"></div>`,
+            className: 'custom-div-icon marker-grow',
+            html: `<div class="marker-grow rounded-full ${color} animate-grow" style="width: 20px; height: 20px;"></div>`,
             iconSize: [20, 20]
         });
 
+
         // Add marker for the matched station
-        const marker = L.marker([matchedStation.lat, matchedStation.long], { icon: selected })
+        const marker = L.marker([matchedStation.lat, matchedStation.long], { icon: selected, zIndexOffset: 1000 })
             .addTo(map)
             .bindPopup(matchedStation.estacion);
 
