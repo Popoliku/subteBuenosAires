@@ -5,18 +5,20 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     const endStation = document.getElementById("end").value.trim();
 
     if (!startStation && !endStation) {
-        document.getElementById("result").innerText = "Introduzca el trayecto";
+        document.getElementById("invalid").innerText = "Introduzca el trayecto";
         return;
     }
 
     if (!startStation) {
-        document.getElementById("result").innerText = "Introduzca estacion de inicio";
+        document.getElementById("invalid").innerText = "Introduzca estacion de inicio";
         return;
     }
     if (!endStation) {
-        document.getElementById("result").innerText = "Introduzca estacion de llegada";
+        document.getElementById("invalid").innerText = "Introduzca estacion de llegada";
         return;
     }
+
+    document.getElementById("invalid").innerText = "";
 
 
     const load = document.getElementById("loading");
@@ -59,17 +61,27 @@ Start             End
     
 });
 
+
+
 console.log("Script loaded");
 
 
 //MAPA
-const map = L.map('map').setView([-34.6083, -58.3712], 13); // Inicializar en Buenos Aires 
+const map = L.map('map').setView([-34.6083, -58.3712],12); // Inicializar en Buenos Aires 
+
 
 //Anadir el mapa
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    noWrap: true,
+    updateWhenIdle: true
 }).addTo(map);
 
+const bounds = [[-34.705, -58.435], [-34.545, -58.355]]; // Example coordinates
+map.fitBounds(bounds);
+
+map.setMinZoom(12); // Prevent excessive zooming out
+map.setMaxZoom(18); // Prevent excessive zooming in
 
 
 map.on('click', function (e) {
