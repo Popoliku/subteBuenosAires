@@ -13,95 +13,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
-    <style>
-        /* Custom background */
-        body {
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
-                url('mapa.webp') center/cover no-repeat;
-        }
-
-        .marker-grow div {
-            animation: growIn 0.2s ease-out;
-        }
-
-        @keyframes growIn {
-            from {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .container-animation {
-            animation: fadeInUp 0.5s ease-out;
-        }
+    <link rel="stylesheet" href="style.css">
 
 
-        @keyframes slideDown {
-            from {
-                transform: translateY(-10px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .suggestion-slide {
-            animation: slideDown 0.4s ease-out;
-        }
-
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.3);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .map-zoom {
-            animation: zoomIn 1s ease-out;
-        }
-
-
-        @keyframes backgroundMove {
-            from {
-                background-position: 25% 25%;
-            }
-
-            to {
-                background-position: 50% 50%;
-            }
-        }
-
-        body {
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
-                url('mapa.webp') center/cover no-repeat;
-            animation: backgroundMove 40s cubic-bezier(.66,.3,.41,.97)infinite alternate;
-        }
-    </style>
 </head>
 
 <body class="flex h-screen justify-center items-center">
@@ -149,14 +63,26 @@
         <h3 id="result" class="text-xl font-medium text-center text-gray-900 mt-6"></h3>
 
         <!-- Map -->
-        <div id="map" class="h-[450px] rounded-xl shadow-3xl mt-6 border border-gray-300 z-10 map-zoom"></div>
-    </div>
-    </div>
+        <div id="map-container" class="relative mt-6">
+            <div id="map" class="h-[450px] rounded-xl shadow-3xl border border-gray-300 z-10"></div>
+            <div class="flex justify-center mt-4">
+                <img id="ampliar-mapa" src="expand.webp" alt="Enlarge"
+                    class="w-8 h-8 cursor-pointer hover:scale-110 transition transform duration-200 ease-in-out"
+                    title="Enlarge Map">
+            </div>
 
-    <script src="script.js"></script>
-    <script src="suggestions.js">
+            <!-- Close Fullscreen Button -->
+            <button id="close-fullscreen"
+                class="absolute top-4 right-4 bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold cursor-pointer hidden">
+                ×
+            </button>
 
-    </script>
+        </div>
+
+        <script src="script.js"></script>
+        <script src="suggestions.js">
+
+        </script>
 </body>
 
 </html>

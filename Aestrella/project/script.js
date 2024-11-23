@@ -178,7 +178,7 @@ function handler(inputField, markerGroup, color) {
     }
 
     // Find matching station
-    const matchedStation = estaciones.find(estacion => 
+    const matchedStation = estaciones.find(estacion =>
         estacion.estacion.toLowerCase() === inputValue
     );
 
@@ -223,3 +223,28 @@ L.polyline(route, { color: 'red', weight: 5 }).addTo(map);
 // L.marker([-34.6022, -58.3810]).addTo(map).bindPopup("Leandro N. Alem");
 
 
+//ampliar mapa
+const mapContainer = document.getElementById("map-container");
+const ampliar = document.getElementById("ampliar-mapa");
+const closeFullscreen = document.getElementById("close-fullscreen");
+
+ampliar.addEventListener("click", () => {
+    mapContainer.classList.add('fullscreen');
+    map.invalidateSize(); //comprobar si container cambio
+    closeFullscreen.classList.remove('hidden'); //para que aparezca la X
+});
+
+
+function closeFullscreenMap (e) {
+    mapContainer.classList.remove('fullscreen');
+    map.invalidateSize(); 
+
+    closeFullscreen.classList.add('hidden');
+}
+
+closeFullscreen.addEventListener("click", closeFullscreenMap);
+document.body.addEventListener("keydown", (e) => {
+    if (e.key === 'Escape') {
+        closeFullscreenMap();
+    }
+});
