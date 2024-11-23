@@ -67,7 +67,10 @@ console.log("Script loaded");
 
 
 //MAPA
-const map = L.map('map').setView([-34.6083, -58.3712],12); // Inicializar en Buenos Aires 
+const map = L.map('map',{
+    zoomAnimation: true,
+    easeLinearity: 0.5, // Controls the animation speed
+}).setView([-34.6083, -58.3712],12); // Inicializar en Buenos Aires 
 
 
 //Anadir el mapa
@@ -182,6 +185,12 @@ const estaciones = [
     { "long": -58.3704125011, "lat": -34.6030139059, "id": 88.0, "estacion": "CORREO CENTRAL", "linea": "E" }
 ];
 
+estaciones.sort((a, b) => {
+    if (a.linea < b.linea) return -1; // 'A' comes before 'B'
+    if (a.linea > b.linea) return 1;  // 'H' comes after 'E'
+    return 0; // Keep the original order if they are the same
+});
+
 
 //Circulo rojo para estacion
 const customDivIcon = L.divIcon({
@@ -190,11 +199,55 @@ const customDivIcon = L.divIcon({
     iconSize: [20, 20]
 });
 
+const lineColors = {
+    "A": "cyan",
+    "B": "red",
+    "C": "blue",
+    "D": "green",
+    "E": "purple",
+    "H": "yellow"
+};
 
 estaciones.forEach(estacion => {
-    const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIcon }).addTo(map).bindPopup("Custom Div Icon Marker");
-    marker.bindPopup(estacion.estacion);
+    const color = lineColors[estacion.linea] || "gray"; 
+    const customIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style='background-color: ${color}; width: 15px; height: 15px; border-radius: 50%;'></div>`,
+        iconSize: [15, 15]
+    });
+
+    const marker = L.marker([estacion.lat, estacion.long], { icon: customIcon }).addTo(map);
+    marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada
 });
+
+
+const routes = new Map(); 
+
+estaciones.forEach(estacion => {
+    const line = estacion.linea;
+    const coord = [estacion.lat, estacion.long];
+    if (!routes.has(line)) {
+        routes.set(line, []);
+    }
+    routes.get(line).push(coord);
+})
+
+console.log(routes);
+const route = [
+    [estaciones[0].lat, estaciones[0].long],
+    [estaciones[1].lat, estaciones[1].long],
+    [estaciones[2].lat, estaciones[2].long],
+    [estaciones[3].lat, estaciones[3].long],
+    [estaciones[4].lat, estaciones[4].long],
+    [estaciones[5].lat, estaciones[5].long],
+    [estaciones[6].lat, estaciones[6].long],
+
+];
+routes.forEach((route,line) =>{
+    const r = route;
+    r.sort();
+    L.polyline(r, { color: `${lineColors[line]}`, weight: 5 }).addTo(map);
+})
 
 
 //Seleccionar punto partida en mapa
@@ -251,17 +304,6 @@ function handler(inputField, markerGroup, color) {
 
 
 
-const route = [
-    [estaciones[0].lat, estaciones[0].long],
-    [estaciones[1].lat, estaciones[1].long],
-    [estaciones[2].lat, estaciones[2].long],
-    [estaciones[3].lat, estaciones[3].long],
-    [estaciones[4].lat, estaciones[4].long],
-    [estaciones[5].lat, estaciones[5].long],
-    [estaciones[6].lat, estaciones[6].long],
-
-];
-L.polyline(route, { color: 'red', weight: 5 }).addTo(map);
 
 
 
@@ -294,3 +336,5 @@ document.body.addEventListener("keydown", (e) => {
         closeFullscreenMap();
     }
 });
+
+
