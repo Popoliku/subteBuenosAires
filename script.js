@@ -19,10 +19,44 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     }
 
 
-    //A*
-    const mockPath = `Camino optimo desde ${startStation} a ${endStation} es:.`;
+    const load = document.getElementById("loading");
 
-    document.getElementById("result").innerText = mockPath;
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    load.classList.remove("hidden"); 
+
+    sleep(1000).then(() => {
+        load.classList.add("hidden"); 
+
+
+        const mockPath = `Camino optimo desde ${startStation} a ${endStation} es:.`;
+
+        document.getElementById("result").innerText = mockPath;
+
+        //A*
+
+        /*
+
+Start             End
+        A             B
+        |             |
+        |             |
+        |             |
+        |             |
+        |             |
+        |             |
+        C             D
+
+
+        */
+
+
+
+
+    });
+
+
+    
 });
 
 console.log("Script loaded");
@@ -235,9 +269,9 @@ ampliar.addEventListener("click", () => {
 });
 
 
-function closeFullscreenMap (e) {
+function closeFullscreenMap(e) {
     mapContainer.classList.remove('fullscreen');
-    map.invalidateSize(); 
+    map.invalidateSize();
 
     closeFullscreen.classList.add('hidden');
 }
