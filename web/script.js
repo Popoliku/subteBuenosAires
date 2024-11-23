@@ -200,7 +200,7 @@ const customDivIcon = L.divIcon({
 });
 
 const lineColors = {
-    "A": "cyan",
+    "A": "#06b6d4",
     "B": "red",
     "C": "blue",
     "D": "green",
