@@ -81,9 +81,9 @@
  }
 
  body {
-     background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+     /* background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
          url('mapa.webp') center/cover no-repeat;
-     animation: backgroundMove 80s cubic-bezier(.6, .31, .51, .72)infinite alternate;
+     animation: backgroundMove 80s cubic-bezier(.6, .31, .51, .72)infinite alternate; */
  }
 /* Fullscreen Map Styles */
 #map-container.fullscreen {
