@@ -83,7 +83,7 @@ const estaciones = [
     { "long": -58.3851423588, "lat": -34.6015871651, "id": 3.0, "estacion": "TRIBUNALES - TEATRO COL\u00d3N", "linea": "D" },
     { "long": -58.393125181, "lat": -34.5996395524, "id": 4.0, "estacion": "CALLAO", "linea": "D" },
     { "long": -58.3979237556, "lat": -34.5997570808, "id": 5.0, "estacion": "FACULTAD DE MEDICINA", "linea": "D" },
-    { "long": -58.3699298501, "lat": -34.6029894966, "id": 6.0, "estacion": "LEANDRO N. ALEM", "linea": "B" }
+    { "long": -58.3699298501, "lat": -34.6029894966, "id": 6.0, "estacion": "LEANDRO N. ALEM", "linea": "B" },
     { "long": -58.3750715183, "lat": -34.6032972856, "id": 7.0, "estacion": "FLORIDA", "linea": "B" },
     { "long": -58.3807148471, "lat": -34.6036371052, "id": 8.0, "estacion": "CARLOS PELLEGRINI", "linea": "B" },
     { "long": -58.3872961335, "lat": -34.6040935531, "id": 9.0, "estacion": "URUGUAY", "linea": "B" },
