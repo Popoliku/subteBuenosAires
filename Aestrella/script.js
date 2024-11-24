@@ -194,29 +194,31 @@ const customDivIconE = L.divIcon({
     iconSize: [20, 20]
 });
 
+
+
 lineaD.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconD }).addTo(map).bindPopup("Custom Div Icon Marker");
-    marker.bindPopup(estacion.estacion);
+    marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
 });
 
 lineaB.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconB }).addTo(map).bindPopup("Custom Div Icon Marker");
-    marker.bindPopup(estacion.estacion);
+    marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
 });
 
 lineaA.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconA }).addTo(map).bindPopup("Custom Div Icon Marker");
-    marker.bindPopup(estacion.estacion);
+    marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
 });
 
 lineaC.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconC }).addTo(map).bindPopup("Custom Div Icon Marker");
-    marker.bindPopup(estacion.estacion);
+    marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
 });
 
 lineaE.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconE }).addTo(map).bindPopup("Custom Div Icon Marker");
-    marker.bindPopup(estacion.estacion);
+    marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
 });
 
 
