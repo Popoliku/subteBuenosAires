@@ -248,13 +248,23 @@ function handler(inputField, markerGroup, color) {
         return;
     }
 
+
+    
+    
     // Find matching station
-    const matchedStation = estaciones.find(estacion =>
+    let matchedStation = estaciones.find(estacion =>
         estacion.estacion.toLowerCase() === inputValue
     );
-
+    if(inputValue === 'callao (línea d)'){
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 4);
+    }else{
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 10);
+    }
+    console.log(matchedStation);
     if (matchedStation) {
-        console.log(`Station found: ${matchedStation.estacion}`);
+        console.log(`Station found: ${matchedStation.estacion} con id ${matchedStation.id} `);
         const selected = L.divIcon({
             className: 'custom-div-icon marker-grow',
             html: `<div class="marker-grow animate-grow" style="
