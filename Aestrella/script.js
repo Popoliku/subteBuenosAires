@@ -258,7 +258,7 @@ function handler(inputField, markerGroup, color) {
     if(inputValue === 'callao (línea d)'){
         matchedStation = estaciones.find(estacion =>
             estacion.id == 4);
-    }else{
+    }else if(inputValue == 'callao (línea b)'){
         matchedStation = estaciones.find(estacion =>
             estacion.id == 10);
     }
