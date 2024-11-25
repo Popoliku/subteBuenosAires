@@ -75,10 +75,21 @@ function setupAutocomplete(inputId, suggestionsId) {
 
     }
 
-    document.addEventListener('click', (e) => {
+    function closeSelect(e){
         if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${suggestionsId}`)) {
             suggestionsBox.innerHTML = '';
         }
+    }
+
+    document.body.addEventListener("keydown", (e) => {
+        if (e.key === 'Escape') {
+            suggestionsBox.innerHTML = '';
+        }
+    });
+    
+    document.addEventListener('click', (e) => {
+        closeSelect(e);
+        console.log("clock");
     });
 }
 
