@@ -17,6 +17,19 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         document.getElementById("result").innerText = "Introduzca estacion de llegada";
         return;
     }
+    if(!estaciones.find(estacion => estacion.estacion.toLowerCase == startStation.toLowerCase)
+         && !estaciones.find(estacion => estacion.estacion.toLowerCase == endStation.toLowerCase)){
+        document.getElementById("result").innerText = "Estaciones de inicio y destino inválidos";
+        return;
+    }
+    if(!estaciones.find(estacion => estacion.estacion.toLowerCase == startStation.toLowerCase)){
+        document.getElementById("result").innerText = "Estación de inicio inválido";
+        return;
+    }
+    if(!estaciones.find(estacion => estacion.estacion.toLowerCase == endStation.toLowerCase)){
+        document.getElementById("result").innerText = "Estación de destino inválido";
+        return;
+    }
 
 
     const load = document.getElementById("loading");
@@ -63,7 +76,7 @@ console.log("Script loaded");
 
 
 //MAPA
-const map = L.map('map').setView([-34.6083, -58.3712], 13); // Inicializar en Buenos Aires 
+const map = L.map('map').setView([-34.6083, -58.38], 14); // Inicializar en Buenos Aires 
 
 //Anadir el mapa
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -204,6 +217,7 @@ lineaD.forEach(estacion => {
 lineaB.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconB }).addTo(map).bindPopup("Custom Div Icon Marker");
     marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
+    
 });
 
 lineaA.forEach(estacion => {
@@ -337,32 +351,27 @@ const routeE = [
 
 L.polyline(routeE, { color: 'purple', weight: 5 }).addTo(map);
 
+var rad = function(x) {
+    return x * Math.PI / 180;
+};
+  
+var getDistance = function(p1, p2) {
+    var R = 6378137; 
+    var dLat = rad(p2.lat - p1.lat);
+    var dLong = rad(p2.long - p1.long);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+      Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d; 
+};
+
+
+
+let distancia = getDistance(estaciones[0],estaciones[2]);
+console.log(distancia);
+
+
 // L.marker([-34.6096, -58.3730]).addTo(map).bindPopup("Plaza de Mayo");
 // L.marker([-34.6022, -58.3810]).addTo(map).bindPopup("Leandro N. Alem");
-
-
-//ampliar mapa
-const mapContainer = document.getElementById("map-container");
-const ampliar = document.getElementById("ampliar-mapa");
-const closeFullscreen = document.getElementById("close-fullscreen");
-
-ampliar.addEventListener("click", () => {
-    mapContainer.classList.add('fullscreen');
-    map.invalidateSize(); //comprobar si container cambio
-    closeFullscreen.classList.remove('hidden'); //para que aparezca la X
-});
-
-
-function closeFullscreenMap(e) {
-    mapContainer.classList.remove('fullscreen');
-    map.invalidateSize();
-
-    closeFullscreen.classList.add('hidden');
-}
-
-closeFullscreen.addEventListener("click", closeFullscreenMap);
-document.body.addEventListener("keydown", (e) => {
-    if (e.key === 'Escape') {
-        closeFullscreenMap();
-    }
-});
