@@ -23,10 +23,10 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-    load.classList.remove("hidden"); 
+    load.classList.remove("hidden");
 
     sleep(1000).then(() => {
-        load.classList.add("hidden"); 
+        load.classList.add("hidden");
 
 
         const mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
@@ -50,13 +50,20 @@ Start             End
 
         */
 
+        const pq = new PriorityQueue({ comparator: (a, b) => a - b });
+        pq.queue(5);
+        pq.queue(1);
+        pq.queue(3);
+
+        console.log(pq.dequeue()); // 1
+        console.log(pq.dequeue()); // 3
 
 
 
     });
 
 
-    
+
 });
 
 console.log("Script loaded");
@@ -249,22 +256,22 @@ function handler(inputField, markerGroup, color) {
     }
 
 
-    
-    
+
+
     // Find matching station
     let matchedStation = estaciones.find(estacion =>
         estacion.estacion.toLowerCase() === inputValue
     );
-    if(inputValue === 'callao (línea d)'){
+    if (inputValue === 'callao (línea d)') {
         matchedStation = estaciones.find(estacion =>
             estacion.id == 4);
-    }else if(inputValue == 'callao (línea b)'){
+    } else if (inputValue == 'callao (línea b)') {
         matchedStation = estaciones.find(estacion =>
             estacion.id == 10);
-    }else if(inputValue === 'independencia (línea c)'){
+    } else if (inputValue === 'independencia (línea c)') {
         matchedStation = estaciones.find(estacion =>
             estacion.id == 26);
-    }else if(inputValue == 'independencia (línea e)'){
+    } else if (inputValue == 'independencia (línea e)') {
         matchedStation = estaciones.find(estacion =>
             estacion.id == 31);
     }
@@ -280,7 +287,7 @@ function handler(inputField, markerGroup, color) {
             background-size: cover; 
             background-position: center top; 
             filter: hue-rotate(0deg) saturate(100%) brightness(0.8) sepia(1) saturate(500%) hue-rotate(-50deg);
-        "></div>`,            iconSize: [40, 70]
+        "></div>`, iconSize: [40, 70]
         });
 
 
@@ -343,7 +350,7 @@ const routeC = [
     [estaciones[26].lat, estaciones[26].long],
     [estaciones[27].lat, estaciones[27].long],
 
-    
+
 ];
 
 L.polyline(routeC, { color: 'blue', weight: 5 }).addTo(map);
@@ -354,7 +361,7 @@ const routeE = [
     [estaciones[30].lat, estaciones[30].long],
     [estaciones[31].lat, estaciones[31].long],
     [estaciones[32].lat, estaciones[32].long],
-    [estaciones[33].lat, estaciones[33].long], 
+    [estaciones[33].lat, estaciones[33].long],
 ];
 
 L.polyline(routeE, { color: 'purple', weight: 5 }).addTo(map);
