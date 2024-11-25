@@ -110,7 +110,7 @@ const estaciones = [
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
     { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSE", "linea": "E" },
-    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RIOS", "linea": "E" },
+    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RÍOS", "linea": "E" },
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
@@ -159,7 +159,7 @@ const lineaE = [
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
     { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSE", "linea": "E" },
-    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RIOS - RODOLFO WALSH", "linea": "E" },
+    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RÍOS", "linea": "E" },
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
@@ -261,6 +261,12 @@ function handler(inputField, markerGroup, color) {
     }else if(inputValue == 'callao (línea b)'){
         matchedStation = estaciones.find(estacion =>
             estacion.id == 10);
+    }else if(inputValue === 'independencia (línea c)'){
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 26);
+    }else if(inputValue == 'independencia (línea e)'){
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 31);
     }
     console.log(matchedStation);
     if (matchedStation) {
