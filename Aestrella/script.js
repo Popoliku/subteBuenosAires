@@ -17,16 +17,21 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         document.getElementById("result").innerText = "Introduzca estación de llegada";
         return;
     }
-    if(!estaciones.find(estacion => estacion.estacion.toLowerCase == startStation.toLowerCase)
-         && !estaciones.find(estacion => estacion.estacion.toLowerCase == endStation.toLowerCase)){
+
+    let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
+    let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
+
+    
+
+    if(!a && !b){
         document.getElementById("result").innerText = "Estaciones de inicio y destino inválidos";
         return;
     }
-    if(!estaciones.find(estacion => estacion.estacion.toLowerCase == startStation.toLowerCase)){
+    if(!a){
         document.getElementById("result").innerText = "Estación de inicio inválido";
         return;
     }
-    if(!estaciones.find(estacion => estacion.estacion.toLowerCase == endStation.toLowerCase)){
+    if(!b){
         document.getElementById("result").innerText = "Estación de destino inválido";
         return;
     }
@@ -308,7 +313,7 @@ function handler(inputField, markerGroup, color) {
         // Add marker for the matched station
         const marker = L.marker([matchedStation.lat, matchedStation.long], { icon: selected, zIndexOffset: 1000 })
             .addTo(map)
-            .bindPopup(matchedStation.estacion);
+            .bindPopup(`<b>${matchedStation.estacion}</b><br>Linea: ${matchedStation.linea}`);
 
         markerGroup.push(marker); // Add to the correct marker group
     } else {
