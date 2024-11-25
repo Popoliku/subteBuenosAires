@@ -10,11 +10,11 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     }
 
     if (!startStation) {
-        document.getElementById("result").innerText = "Introduzca estacion de inicio";
+        document.getElementById("result").innerText = "Introduzca estación de inicio";
         return;
     }
     if (!endStation) {
-        document.getElementById("result").innerText = "Introduzca estacion de llegada";
+        document.getElementById("result").innerText = "Introduzca estación de llegada";
         return;
     }
     if(!estaciones.find(estacion => estacion.estacion.toLowerCase == startStation.toLowerCase)
@@ -36,13 +36,13 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-    load.classList.remove("hidden"); 
+    load.classList.remove("hidden");
 
     sleep(1000).then(() => {
-        load.classList.add("hidden"); 
+        load.classList.add("hidden");
 
 
-        const mockPath = `Camino optimo desde ${startStation} a ${endStation} es:.`;
+        const mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
 
         document.getElementById("result").innerText = mockPath;
 
@@ -63,13 +63,20 @@ Start             End
 
         */
 
+        const pq = new PriorityQueue({ comparator: (a, b) => a - b });
+        pq.queue(5);
+        pq.queue(1);
+        pq.queue(3);
+
+        console.log(pq.dequeue()); // 1
+        console.log(pq.dequeue()); // 3
 
 
 
     });
 
 
-    
+
 });
 
 console.log("Script loaded");
@@ -123,7 +130,7 @@ const estaciones = [
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
     { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSE", "linea": "E" },
-    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RIOS", "linea": "E" },
+    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RÍOS", "linea": "E" },
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
@@ -172,7 +179,7 @@ const lineaE = [
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
     { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSE", "linea": "E" },
-    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RIOS - RODOLFO WALSH", "linea": "E" },
+    { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RÍOS", "linea": "E" },
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
@@ -262,17 +269,39 @@ function handler(inputField, markerGroup, color) {
         return;
     }
 
+
+
+
     // Find matching station
-    const matchedStation = estaciones.find(estacion =>
+    let matchedStation = estaciones.find(estacion =>
         estacion.estacion.toLowerCase() === inputValue
     );
-
+    if (inputValue === 'callao (línea d)') {
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 4);
+    } else if (inputValue == 'callao (línea b)') {
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 10);
+    } else if (inputValue === 'independencia (línea c)') {
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 26);
+    } else if (inputValue == 'independencia (línea e)') {
+        matchedStation = estaciones.find(estacion =>
+            estacion.id == 31);
+    }
+    console.log(matchedStation);
     if (matchedStation) {
-        console.log(`Station found: ${matchedStation.estacion}`);
+        console.log(`Station found: ${matchedStation.estacion} con id ${matchedStation.id} `);
         const selected = L.divIcon({
             className: 'custom-div-icon marker-grow',
-            html: `<div class="marker-grow rounded-full ${color} animate-grow" style="width: 20px; height: 20px;"></div>`,
-            iconSize: [20, 20]
+            html: `<div class="marker-grow animate-grow" style="
+            width: 40px; 
+            height: 40px; 
+            background-image: url('llegada.png'); 
+            background-size: cover; 
+            background-position: center top; 
+            filter: hue-rotate(0deg) saturate(100%) brightness(0.8) sepia(1) saturate(500%) hue-rotate(-50deg);
+        "></div>`, iconSize: [40, 70]
         });
 
 
@@ -335,7 +364,7 @@ const routeC = [
     [estaciones[26].lat, estaciones[26].long],
     [estaciones[27].lat, estaciones[27].long],
 
-    
+
 ];
 
 L.polyline(routeC, { color: 'blue', weight: 5 }).addTo(map);
@@ -346,7 +375,7 @@ const routeE = [
     [estaciones[30].lat, estaciones[30].long],
     [estaciones[31].lat, estaciones[31].long],
     [estaciones[32].lat, estaciones[32].long],
-    [estaciones[33].lat, estaciones[33].long], 
+    [estaciones[33].lat, estaciones[33].long],
 ];
 
 L.polyline(routeE, { color: 'purple', weight: 5 }).addTo(map);

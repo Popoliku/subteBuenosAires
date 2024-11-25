@@ -1,7 +1,7 @@
  /* Custom background */
  body {
-     background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
-         url('mapa.webp') center/cover no-repeat;
+     /* background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+         url('mapa.webp') center/cover no-repeat; */
  }
 
  .marker-grow div {
