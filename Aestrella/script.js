@@ -10,11 +10,11 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     }
 
     if (!startStation) {
-        document.getElementById("result").innerText = "Introduzca estacion de inicio";
+        document.getElementById("result").innerText = "Introduzca estación de inicio";
         return;
     }
     if (!endStation) {
-        document.getElementById("result").innerText = "Introduzca estacion de llegada";
+        document.getElementById("result").innerText = "Introduzca estación de llegada";
         return;
     }
 
@@ -29,7 +29,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         load.classList.add("hidden"); 
 
 
-        const mockPath = `Camino optimo desde ${startStation} a ${endStation} es:.`;
+        const mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
 
         document.getElementById("result").innerText = mockPath;
 
