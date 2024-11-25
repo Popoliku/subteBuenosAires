@@ -24,7 +24,7 @@
 
 <body class="flex h-screen justify-normal">
 
-    <div class="bg-gray-200 bg-opacity-90 shadow-lg rounded-4xl p-8 max-w-screen-sm w-1/3 h-full container-animation">
+    <div class="bg-gray-50 bg-opacity-90 shadow-lg rounded-4xl p-8 max-w-screen-sm w-1/3 h-full container-animation">
 
         <div class="space-y-1">
 
@@ -34,7 +34,7 @@
 
                 <div class="relative flex-grow">
                     <input type="text" id="start" placeholder="Estación de comienzo"
-                        class=" sm:p-4 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-sm sm:text-lg">
+                        class="sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500  text-gray-700 text-sm sm:text-base">
                     <div id="startSuggestions"
                         class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
                     </div>
@@ -49,7 +49,7 @@
 
                 <div class="relative flex-grow">
                     <input type="text" id="end" placeholder="Estación de llegada"
-                        class=" sm:p-4 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-sm sm:text-lg">
+                        class=" sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500  text-gray-700 text-sm sm:text-base">
                     <div id="endSuggestions"
                         class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
                     </div>
@@ -71,7 +71,7 @@
                             </svg>
                         </div>
                         <input type="time" id="time"
-                            class="bg-white-50 border leading-none border-white-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            class="bg-white-50 border leading-none border-white-300 text-gray-900 text-md rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             min="05:00" max="23:00" value="13:00" required />
                     </div>
                 </form>
@@ -80,7 +80,7 @@
                 <form class="max-w-[12rem]">
                     <label for="weekday" class="block mb-2 mt-2 text-md font-medium">Día: </label>
                     <select id="weekday"
-                        class="bg-white border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        class="bg-white border border-gray-300 text-gray-900 text-md rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option value="monday">Lunes</option>
                         <option value="tuesday">Martes</option>
                         <option value="wednesday">Miércoles</option>
@@ -101,7 +101,7 @@
         <!-- Button -->
         <div class="mt-6">
             <button id="findPathBtn"
-                class="w-full py-2 sm:p-2 bg-blue-700 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-800 transition transform hover:scale-105 text-sm sm:text-lg">
+                class="w-full py-2 sm:p-2 bg-blue-700 text-white font-semibold rounded-2xl shadow-lg hover:bg-blue-800 transition transform hover:scale-105 text-sm sm:text-lg">
                 Calcular Ruta
             </button>
         </div>
