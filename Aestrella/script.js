@@ -20,18 +20,25 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
+    let c = startStation.toLowerCase() == "callao (línea b)";
+    let d = startStation.toLowerCase() == "callao (línea d)";
+    let e = startStation.toLowerCase() == "independencia (línea c)";
+    let f = startStation.toLowerCase() == "independencia (línea e)";
+    let g = endStation.toLowerCase() == "callao (línea b)";
+    let h = endStation.toLowerCase() == "callao (línea d)";
+    let i = endStation.toLowerCase() == "independencia (línea c)";
+    let j = endStation.toLowerCase() == "independencia (línea e)";
+    let k = c || d || e || f || g || h || i || j;
 
-    
-
-    if(!a && !b){
+    if(!a && !b && !k){
         document.getElementById("result").innerText = "Estaciones de inicio y destino inválidos";
         return;
     }
-    if(!a){
+    if(!a && !k){
         document.getElementById("result").innerText = "Estación de inicio inválido";
         return;
     }
-    if(!b){
+    if(!b && !k){
         document.getElementById("result").innerText = "Estación de destino inválido";
         return;
     }
@@ -262,10 +269,10 @@ let startMarkers = [];
 let endMarkers = [];
 
 // Add event listeners
-inputField1.addEventListener('input', () => handler(inputField1, endMarkers, 'bg-blue-900'));
-inputField2.addEventListener('input', () => handler(inputField2, startMarkers, 'bg-green-700'));
+inputField1.addEventListener('input', () => handler(inputField1, endMarkers));
+inputField2.addEventListener('input', () => handler(inputField2, startMarkers));
 
-function handler(inputField, markerGroup, color) {
+function handler(inputField, markerGroup) {
     console.log(`Input changed for: ${inputField.id}`);
 
     // Clear markers only for this input
