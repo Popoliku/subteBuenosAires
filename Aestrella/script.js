@@ -257,8 +257,14 @@ function handler(inputField, markerGroup, color) {
         console.log(`Station found: ${matchedStation.estacion}`);
         const selected = L.divIcon({
             className: 'custom-div-icon marker-grow',
-            html: `<div class="marker-grow rounded-full ${color} animate-grow" style="width: 20px; height: 20px;"></div>`,
-            iconSize: [20, 20]
+            html: `<div class="marker-grow animate-grow" style="
+            width: 40px; 
+            height: 40px; 
+            background-image: url('llegada.png'); 
+            background-size: cover; 
+            background-position: center top; 
+            filter: hue-rotate(0deg) saturate(100%) brightness(0.8) sepia(1) saturate(500%) hue-rotate(-50deg);
+        "></div>`,            iconSize: [40, 70]
         });
 
 
