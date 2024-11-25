@@ -88,14 +88,18 @@ console.log("Script loaded");
 
 
 //MAPA
-const map = L.map('map').setView([-34.6083, -58.38], 14); // Inicializar en Buenos Aires 
+const map = L.map('map').setView([-34.6083, -58.38], 13); // Inicializar en Buenos Aires 
 
 //Anadir el mapa
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    noWrap: true,
+    updateWhenIdle: true
 }).addTo(map);
 
 
+map.setMinZoom(12); // Prevent excessive zooming out
+map.setMaxZoom(18); // Prevent excessive zooming in
 
 map.on('click', function (e) {
     console.log(`clicked on ${e.latlng}`);
