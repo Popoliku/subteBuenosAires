@@ -87,7 +87,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     draw.addTo(map).snakeIn();
 
 
-    sleep(route.length*250).then(() => {
+    sleep(route.length*240).then(() => {
         load.classList.add("hidden");
         document.getElementById("result").innerText = mockPath;
 
@@ -258,7 +258,7 @@ console.log(graph)
 //Circulo rojo para estacion
 const customDivIconD = L.divIcon({
     className: 'custom-div-icon',
-    html: "<div style='background-color: green; width: 20px; height: 20px; border-radius: 50%;'></div>",
+    html: "<div style=' background-color: white; width: 20px; height: 20px; border: 4px solid green; border-radius: 50%; '></div>",
     iconSize: [20, 20]
 });
 
@@ -329,6 +329,9 @@ inputField1.addEventListener('input', () => handler(inputField1, endMarkers));
 inputField2.addEventListener('input', () => handler(inputField2, startMarkers));
 
 function handler(inputField, markerGroup) {
+    if(draw){
+        map.removeLayer(draw);
+    }
     console.log(`Input changed for: ${inputField.id}`);
 
     // Clear markers only for this input
