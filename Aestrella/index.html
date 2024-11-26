@@ -2,77 +2,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metro Path Finder</title>
+    <!-- ... (rest of your head content) ... -->
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Leaflet CSS -->
+    <!-- Leaflet CSS and JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Additional scripts -->
     <script src="https://cdn.jsdelivr.net/npm/js-priority-queue"></script>
-
-
-    <!-- Para calcular distancia aerea de dos coordenadas -->
-    <script type="text/javascript"
-        src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
-
-    <!-- Leaflet Snake Animation -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
     <script src="./animation/L.Polyline.SnakeAnim.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> <style>
+
+    <!-- Fonts and Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
         body {
             font-family: 'Montserrat', sans-serif;
         }
     </style>
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="flex h-screen justify-normal ">
+<body class="flex h-screen justify-normal">
 
     <div class="bg-gradient-to-t from-blue-100 to-slate-50 bg-opacity-90 shadow-lg rounded-4xl p-8 max-w-screen-sm w-1/3 h-full container-animation">
 
         <div class="space-y-1">
+            <!-- Header -->
             <div class="mb-6 text-center">
                 <img src="logo.png" alt="Metro Logo" class="mx-auto w-16 h-16 mb-2">
                 <h1 class="text-2xl font-bold text-gray-800">Metro de Buenos Aires Path Finder</h1>
                 <p class="text-gray-600">Encuentra la mejor ruta en metro</p>
             </div>
+
+            <!-- Input Fields -->
             <div class="flex items-center space-x-2">
-                <img src="salida.png" class="w-3 h-3 mr-1.5 position:relative">
-
-
+                <img src="salida.png" class="w-3 h-3 mr-1.5">
                 <div class="relative flex-grow">
                     <input type="text" id="start" placeholder="Estación de comienzo"
-                        class="sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500  text-gray-700 text-sm sm:text-base">
+                        class="sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-sm sm:text-base">
                     <div id="startSuggestions"
                         class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
                     </div>
                 </div>
-
             </div>
+
             <div class="flex justify-start">
-                <img src="three-dots.webp" class="w-3 h-4 position:relative">
+                <img src="three-dots.webp" class="w-3 h-4">
             </div>
-            <div class="flex items-center space-x-2">
-                <img src="llegada.png" class="w-4 h-4 position:relative">
 
+            <div class="flex items-center space-x-2">
+                <img src="llegada.png" class="w-4 h-4">
                 <div class="relative flex-grow">
                     <input type="text" id="end" placeholder="Estación de llegada"
-                        class=" sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500  text-gray-700 text-sm sm:text-base">
+                        class="sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-sm sm:text-base">
                     <div id="endSuggestions"
                         class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
                     </div>
                 </div>
-
             </div>
 
             <!-- Time and Weekday -->
-            <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0" style="margin-top: 18px;">
+            <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mt-4">
                 <!-- Time Picker -->
                 <div class="w-full">
                     <label for="time" class="block text-sm font-medium text-gray-700 mb-1">
@@ -95,12 +93,9 @@
                     <label for="weekday" class="block text-sm font-medium text-gray-700 mb-1">
                         <div class="flex items-center">
                             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" height="14" width="12.25"
-                                viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                viewBox="0 0 448 512">
                                 <path fill="#74C0FC"
                                     d="M128 0c17.7 0 32 14.3 32 32l0 32 128 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 32 48 0c26.5 0 48 21.5 48 48l0 48L0 160l0-48C0 85.5 21.5 64 48 64l48 0 0-32c0-17.7 14.3-32 32-32zM0 192l448 0 0 272c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 192zm64 80l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm128 0l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zM64 400l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16z" />
-                            </svg>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3M5 11h14M5 19h14M7 15h.01M7 15a2 2 0 110-4 2 2 0 010 4z" />
                             </svg>
                             Día
                         </div>
@@ -117,15 +112,11 @@
                     </select>
                 </div>
             </div>
-
-
         </div>
 
-
-
-
-        <!-- Calculate Route Button -->
+        <!-- Calculate Route Button and Route Information -->
         <div>
+            <!-- Calculate Route Button -->
             <button id="findPathBtn"
                 class="mt-7 w-full py-3 bg-blue-600 text-white font-semibold rounded-full shadow-md hover:bg-indigo-700 transition transform hover:scale-105 active:scale-95 duration-300 flex items-center justify-center">
                 <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -135,101 +126,158 @@
                 </svg>
                 Calcular Ruta
             </button>
+
+            <!-- Loading Spinner -->
+            <div id="loading" class="flex justify-center mt-4 hidden">
+                <div class="loader"></div>
+            </div>
+
+            <!-- Result -->
+            <h3 id="result" class="text-sm sm:text-lg font-medium text-center text-gray-900 mt-6"></h3>
+
+            <!-- Total Route Summary -->
+            <div id="routeSummary" class="mt-6 p-4 bg-white rounded-lg shadow">
+                <h2 class="text-xl font-semibold text-gray-800">Resumen del Viaje</h2>
+                <p class="text-gray-700 mt-2">
+                    <span class="font-medium">Duración Total:</span> 30 mins
+                </p>
+                <p class="text-gray-700">
+                    <span class="font-medium">Distancia Total:</span> 12 km
+                </p>
+                <p class="text-gray-700">
+                    <span class="font-medium">Transbordos:</span> 1
+                </p>
+            </div>
+
+            <!-- Route Steps Container -->
+            <div id="routeSteps" class="mt-6 space-y-4">
+                <!-- Step 1 -->
+                <div class="flex items-start space-x-3">
+                    <!-- Step Number -->
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
+                            1
+                        </div>
+                    </div>
+                    <!-- Step Content -->
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <!-- Walking Icon -->
+                            <svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 320 512">
+                                <path
+                                    d="M208 96a48 48 0 1 0-96 0 48 48 0 1 0 96 0zM73.1 364.7L64 480c-1.7 22.1 15.6 32 30.1 32 14.5 0 27.4-9.4 30.1-24l14.3-85.7L192 384v112c0 16 13.4 32 30.1 32 16.8 0 30.1-13.4 30.1-30.1V366c0-14.7-7.1-28.5-19.1-37l-65.7-47.5 12.6-63.8c32.5 49.6 79.4 86.5 130.9 86.5 16.8 0 30.1-13.4 30.1-30.1s-13.4-30.1-30.1-30.1c-39.3 0-75.3-26.7-101.1-67.5L145.5 121c-12-17.1-30.5-25-49-25-19.6 0-39.1 9.6-49.9 28.4L5.6 223.6c-9.3 15.7-4.2 35.8 11.5 45.1s35.8 4.2 45.1-11.5l33.1-55.7 27.7 39.1-26.6 133.8z" />
+                            </svg>
+                            <p class="text-gray-800 font-medium">Camina hasta la <span class="font-semibold">Estación A</span></p>
+                        </div>
+                        <p class="text-sm text-gray-500">Duración: 5 mins | Distancia: 0.5 km</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
+                            2
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <!-- Metro Icon -->
+                            <svg class="w-6 h-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 448 512">
+                                <path
+                                    d="M224 0C100.3 0 0 100.3 0 224v176c0 30.9 25.1 56 56 56h56v-64H64V224c0-88.2 71.8-160 160-160s160 71.8 160 160v168h-48v64h56c30.9 0 56-25.1 56-56V224C448 100.3 347.7 0 224 0z" />
+                            </svg>
+                            <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 1</span> desde
+                                <span class="font-semibold">Estación A</span> hasta <span class="font-semibold">Estación B</span>
+                            </p>
+                        </div>
+                        <p class="text-sm text-gray-500">Duración: 10 mins | Distancia: 5 km</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
+                            3
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <!-- Transfer Icon -->
+                            <svg class="w-6 h-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M352 144h112v112h-48V205.25L272 349.25V464h-48V314.75l-144 144V464h-48V352H0V240h48v82.75L192 178.75V48h48v149.25l144-144V48h48v96z" />
+                            </svg>
+                            <p class="text-gray-800 font-medium">Transfiere a la <span class="font-semibold">Línea 2</span> en
+                                <span class="font-semibold">Estación B</span>
+                            </p>
+                        </div>
+                        <p class="text-sm text-gray-500">Duración: 2 mins</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
+                            4
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <!-- Metro Icon -->
+                            <svg class="w-6 h-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 448 512">
+                                <path
+                                    d="M224 0C100.3 0 0 100.3 0 224v176c0 30.9 25.1 56 56 56h56v-64H64V224c0-88.2 71.8-160 160-160s160 71.8 160 160v168h-48v64h56c30.9 0 56-25.1 56-56V224C448 100.3 347.7 0 224 0z" />
+                            </svg>
+                            <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 2</span> desde
+                                <span class="font-semibold">Estación B</span> hasta <span class="font-semibold">Estación D</span>
+                            </p>
+                        </div>
+                        <p class="text-sm text-gray-500">Duración: 8 mins | Distancia: 6 km</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
+                            5
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <!-- Walking Icon -->
+                            <svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 320 512">
+                                <path
+                                    d="M208 96a48 48 0 1 0-96 0 48 48 0 1 0 96 0zM73.1 364.7L64 480c-1.7 22.1 15.6 32 30.1 32 14.5 0 27.4-9.4 30.1-24l14.3-85.7L192 384v112c0 16 13.4 32 30.1 32 16.8 0 30.1-13.4 30.1-30.1V366c0-14.7-7.1-28.5-19.1-37l-65.7-47.5 12.6-63.8c32.5 49.6 79.4 86.5 130.9 86.5 16.8 0 30.1-13.4 30.1-30.1s-13.4-30.1-30.1-30.1c-39.3 0-75.3-26.7-101.1-67.5L145.5 121c-12-17.1-30.5-25-49-25-19.6 0-39.1 9.6-49.9 28.4L5.6 223.6c-9.3 15.7-4.2 35.8 11.5 45.1s35.8 4.2 45.1-11.5l33.1-55.7 27.7 39.1-26.6 133.8z" />
+                            </svg>
+                            <p class="text-gray-800 font-medium">Camina hasta tu destino final desde
+                                <span class="font-semibold">Estación D</span>
+                            </p>
+                        </div>
+                        <p class="text-sm text-gray-500">Duración: 5 mins | Distancia: 0.5 km</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Loading Spinner -->
-        <div id="loading" class="flex justify-center mt-4 hidden">
-            <div class="loader"></div>
-        </div>
-
-        <!-- Result -->
-        <h3 id="result" class="text-sm sm:text-lg font-medium text-center text-gray-900 mt-6"></h3>
-
-        <!-- Route Steps Container chat gpt gawd-->
-<div id="routeSteps" class="mt-6 space-y-4">
-  <!-- Step 1 -->
-  <div class="flex items-start space-x-3">
-    <!-- Step Number -->
-    <div class="flex-shrink-0">
-      <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
-        1
-      </div>
-    </div>
-    <!-- Step Content -->
-    <div>
-      <p class="text-gray-800 font-medium">Camina hasta la <span class="font-semibold">Estación A</span></p>
-      <p class="text-sm text-gray-500">Duración: 5 mins</p>
-    </div>
-  </div>
-
-  <!-- Step 2 -->
-  <div class="flex items-start space-x-3">
-    <div class="flex-shrink-0">
-      <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
-        2
-      </div>
-    </div>
-    <div>
-      <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 1</span> desde <span class="font-semibold">Estación A</span> hasta <span class="font-semibold">Estación B</span></p>
-      <p class="text-sm text-gray-500">Duración: 10 mins</p>
-    </div>
-  </div>
-
-  <!-- Step 3 -->
-  <div class="flex items-start space-x-3">
-    <div class="flex-shrink-0">
-      <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
-        3
-      </div>
-    </div>
-    <div>
-      <p class="text-gray-800 font-medium">Transfiere a la <span class="font-semibold">Línea 2</span> en <span class="font-semibold">Estación B</span></p>
-      <p class="text-sm text-gray-500">Duración: 2 mins</p>
-    </div>
-  </div>
-
-  <!-- Step 4 -->
-  <div class="flex items-start space-x-3">
-    <div class="flex-shrink-0">
-      <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
-        4
-      </div>
-    </div>
-    <div>
-      <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 2</span> desde <span class="font-semibold">Estación B</span> hasta <span class="font-semibold">Estación D</span></p>
-      <p class="text-sm text-gray-500">Duración: 8 mins</p>
-    </div>
-  </div>
-
-  <!-- Step 5 -->
-  <div class="flex items-start space-x-3">
-    <div class="flex-shrink-0">
-      <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full">
-        5
-      </div>
-    </div>
-    <div>
-      <p class="text-gray-800 font-medium">Camina hasta tu destino final desde <span class="font-semibold">Estación D</span></p>
-      <p class="text-sm text-gray-500">Duración: 5 mins</p>
-    </div>
-  </div>
-</div>
-
-    </div>
     <!-- Map -->
-    <div id="map-container" class=" h-screen w-full">
+    <div id="map-container" class="h-screen w-full">
         <div id="map" class="h-screen shadow-3xl border border-gray-300 z-10"></div>
-
-        
-
     </div>
 
-
-
+    <!-- Scripts -->
     <script src="script.js"></script>
     <script src="suggestions.js"></script>
     <script src="path-finder.js"></script>
 </body>
-
 
 </html>
