@@ -408,7 +408,8 @@ function handler(inputField, markerGroup) {
         const marker = L.marker([matchedStation.lat, matchedStation.long], { icon: selected, zIndexOffset: 1000 })
             .addTo(map)
             .bindPopup(`<b>${matchedStation.estacion}</b><br>Linea: ${matchedStation.linea}`);
-
+        marker.on('mouseover',function(){this.openPopup()});
+        marker.on('mouseout',function(){this.closePopup()});
         markerGroup.push(marker); // Add to the correct marker group
     } else {
         console.log("No matching station found.");
