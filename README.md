@@ -1,6 +1,7 @@
 # Subte Buenos Aires Path-Finder
 
-![image](https://github.com/user-attachments/assets/2819943d-956d-4d27-ad8c-655d35867373)
+![image](https://github.com/user-attachments/assets/2502bba7-7455-4b32-83b1-f489e48bcc79)
+
 
 
 
