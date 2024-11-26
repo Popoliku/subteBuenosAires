@@ -81,7 +81,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     }
     draw = L.polyline(route, {
         color: 'black',
-        weight: 8,
+        weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
 
@@ -416,7 +416,7 @@ const routeD = [
     [estaciones[4].lat, estaciones[4].long],
 ];
 
-L.polyline(routeD, { color: 'green', weight: 8 }).addTo(map);
+L.polyline(routeD, { color: 'green', weight: 6 }).addTo(map);
 
 const routeB = [
     [estaciones[5].lat, estaciones[5].long],
@@ -427,7 +427,7 @@ const routeB = [
     [estaciones[10].lat, estaciones[10].long],
 ];
 
-L.polyline(routeB, { color: 'red', weight: 5 }).addTo(map);
+L.polyline(routeB, { color: 'red', weight: 6 }).addTo(map);
 
 const routeA = [
     [estaciones[11].lat, estaciones[11].long],
@@ -440,7 +440,7 @@ const routeA = [
     [estaciones[18].lat, estaciones[18].long],
 ];
 
-L.polyline(routeA, { color: 'lightblue', weight: 5 }).addTo(map);
+L.polyline(routeA, { color: 'lightblue', weight: 6 }).addTo(map);
 
 const routeC = [
     [estaciones[19].lat, estaciones[19].long],
@@ -456,7 +456,7 @@ const routeC = [
 
 ];
 
-L.polyline(routeC, { color: 'blue', weight: 5 }).addTo(map);
+L.polyline(routeC, { color: 'blue', weight: 6 }).addTo(map);
 
 const routeE = [
     [estaciones[28].lat, estaciones[28].long],
@@ -467,7 +467,7 @@ const routeE = [
     [estaciones[33].lat, estaciones[33].long],
 ];
 
-L.polyline(routeE, { color: 'purple', weight: 5 }).addTo(map);
+L.polyline(routeE, { color: 'purple', weight: 6 }).addTo(map);
 
 
 
