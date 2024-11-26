@@ -198,6 +198,30 @@ const lineaE = [
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
+const adyacencia = {};  
+estaciones.forEach(estacion=>{
+    let adyacentes = estaciones.filter(station=>(estacion.linea==station.linea) && 
+    (station.id==estacion.id-1 || station.id==estacion.id+1));
+    if(estacion.id==8.0) adyacentes.push(estaciones[22]);
+    if(estacion.id==2.0) adyacentes.push(estaciones[7],estaciones[22]);
+    if(estacion.id==23.0) adyacentes.push(estaciones[1]);
+
+    if(estacion.id==15.0) adyacentes.push(estaciones[23]);
+    if(estacion.id==24.0) adyacentes.push(estaciones[14]);
+
+    if(estacion.id==13.0) adyacentes.push(estaciones[0],estaciones[28]);
+    if(estacion.id==1.0) adyacentes.push(estaciones[12],estaciones[28]);
+    if(estacion.id==29.0) adyacentes.push(estaciones[0],estaciones[12]);
+
+    if(estacion.id==26.0) adyacentes.push(estaciones[30]);
+    if(estacion.id==31.0) adyacentes.push(estaciones[25]);
+    if(adyacencia[estacion.id] == undefined) adyacencia[estacion.id] = adyacentes;
+});
+
+for (let key in adyacencia) {
+    console.log(`estacion ${key} es adyacente a ${adyacencia[key]}`);
+  }
+
 //Circulo rojo para estacion
 const customDivIconD = L.divIcon({
     className: 'custom-div-icon',
