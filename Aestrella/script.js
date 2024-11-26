@@ -1,5 +1,6 @@
+var draw;
+
 document.getElementById("findPathBtn").addEventListener("click", () => {
-    var draw;
     const startStation = document.getElementById("start").value.trim();
     const endStation = document.getElementById("end").value.trim();
 
