@@ -20,25 +20,24 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
-    let c = startStation.toLowerCase() == "callao (línea b)";
-    let d = startStation.toLowerCase() == "callao (línea d)";
-    let e = startStation.toLowerCase() == "independencia (línea c)";
-    let f = startStation.toLowerCase() == "independencia (línea e)";
-    let g = endStation.toLowerCase() == "callao (línea b)";
-    let h = endStation.toLowerCase() == "callao (línea d)";
-    let i = endStation.toLowerCase() == "independencia (línea c)";
-    let j = endStation.toLowerCase() == "independencia (línea e)";
-    let k = c || d || e || f || g || h || i || j;
+    if(startStation.toLowerCase()=="callao (línea d)") a = estaciones[0];
+    if(startStation.toLowerCase()=="callao (línea b)") a = estaciones[3];
+    if(startStation.toLowerCase()=="independencia (línea c)") a = estaciones[25];
+    if(startStation.toLowerCase()=="independencia (línea e)") a = estaciones[30];
+    if(endStation.toLowerCase()=="callao (línea d)") b = estaciones[0];
+    if(endStation.toLowerCase()=="callao (línea b)") b = estaciones[3];
+    if(endStation.toLowerCase()=="independencia (línea c)") b = estaciones[25];
+    if(endStation.toLowerCase()=="independencia (línea e)") b = estaciones[30];
 
-    if(!a && !b && !k){
+    if(!a && !b){
         document.getElementById("result").innerText = "Estaciones de inicio y destino inválidos";
         return;
     }
-    if(!a && !k){
+    if(!a){
         document.getElementById("result").innerText = "Estación de inicio inválido";
         return;
     }
-    if(!b && !k){
+    if(!b){
         document.getElementById("result").innerText = "Estación de destino inválido";
         return;
     }
