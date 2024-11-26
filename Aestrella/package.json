@@ -3,6 +3,7 @@
     "tailwindcss": "^3.4.15"
   },
   "dependencies": {
-    "js-priority-queue": "^0.1.5"
+    "js-priority-queue": "^0.1.5",
+    "priorityqueuejs": "^2.0.0"
   }
 }

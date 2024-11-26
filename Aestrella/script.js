@@ -1,5 +1,3 @@
-
-
 document.getElementById("findPathBtn").addEventListener("click", () => {
     const startStation = document.getElementById("start").value.trim();
     const endStation = document.getElementById("end").value.trim();
@@ -53,9 +51,27 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         load.classList.add("hidden");
 
 
-        const mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
+        var mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
+
+
+
+        // jiji(a,b);
+        const path = Astar(a.id,b.id);
+
+        console.log("Camino optimo es: ")
+        var camino = "";
+        var first=true;
+        for(var x in path){
+            if(!first) camino += " -> ";
+            camino += estaciones.find(estacion => estacion.id == path[x]).estacion;
+            first=false;
+        }
+
+        mockPath += camino;
 
         document.getElementById("result").innerText = mockPath;
+
+
 
         //A*
 
@@ -74,13 +90,14 @@ Start             End
 
         */
 
-        const pq = new PriorityQueue({ comparator: (a, b) => a - b });
-        pq.queue(5);
-        pq.queue(1);
-        pq.queue(3);
+        // const pq = new PriorityQueue({ comparator: (a, b) => a - b });
+        // pq.queue(5);
+        // pq.queue(1);
+        // pq.queue(3);
 
-        console.log(pq.dequeue()); // 1
-        console.log(pq.dequeue()); // 3
+        // console.log(pq.dequeue()); // 1
+        // console.log(pq.dequeue()); // 3
+
 
 
 
@@ -133,14 +150,14 @@ const estaciones = [
     { "long": -58.3984269918, "lat": -34.6096459617, "id": 18.0, "estacion": "PASCO", "linea": "A" },
     { "long": -58.4012075342, "lat": -34.6098335784, "id": 19.0, "estacion": "ALBERTI", "linea": "A" },
     { "long": -58.3740182165, "lat": -34.5911938083, "id": 20.0, "estacion": "RETIRO", "linea": "C" },
-    { "long": -58.377819051, "lat": -34.5950574048, "id": 21.0, "estacion": "SAN MARTIN", "linea": "C" },
+    { "long": -58.377819051, "lat": -34.5950574048, "id": 21.0, "estacion": "SAN MARTÍN", "linea": "C" },
     { "long": -58.3781557828, "lat": -34.601769923, "id": 22.0, "estacion": "LAVALLE", "linea": "C" },
     { "long": -58.3795299801, "lat": -34.6048437399, "id": 23.0, "estacion": "DIAGONAL NORTE", "linea": "C" },
     { "long": -58.380610718, "lat": -34.6089833149, "id": 24.0, "estacion": "AVENIDA DE MAYO", "linea": "C" },
     { "long": -58.3804444697, "lat": -34.6126172798, "id": 25.0, "estacion": "MORENO", "linea": "C" },
     { "long": -58.3801736105, "lat": -34.6181255993, "id": 26.0, "estacion": "INDEPENDENCIA", "linea": "C" },
     { "long": -58.3799211789, "lat": -34.6219167322, "id": 27.0, "estacion": "SAN JUAN", "linea": "C" },
-    { "long": -58.3814344339, "lat": -34.6276194523, "id": 28.0, "estacion": "CONSTITUCION", "linea": "C" },
+    { "long": -58.3814344339, "lat": -34.6276194523, "id": 28.0, "estacion": "CONSTITUCIÓN", "linea": "C" },
     { "long": -58.3736842242, "lat": -34.6092424289, "id": 29.0, "estacion": "BOLIVAR", "linea": "E" },
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
@@ -198,13 +215,13 @@ const lineaE = [
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
-const adyacencia = {};  
+const graph = new Map(); 
 estaciones.forEach(estacion=>{
     let adyacentes = estaciones.filter(station=>(estacion.linea==station.linea) && 
     (station.id==estacion.id-1 || station.id==estacion.id+1));
     if(estacion.id==8.0) adyacentes.push(estaciones[22]);
     if(estacion.id==2.0) adyacentes.push(estaciones[7],estaciones[22]);
-    if(estacion.id==23.0) adyacentes.push(estaciones[1]);
+    if(estacion.id==23.0) adyacentes.push(estaciones[1],estaciones[7]);
 
     if(estacion.id==15.0) adyacentes.push(estaciones[23]);
     if(estacion.id==24.0) adyacentes.push(estaciones[14]);
@@ -215,13 +232,16 @@ estaciones.forEach(estacion=>{
 
     if(estacion.id==26.0) adyacentes.push(estaciones[30]);
     if(estacion.id==31.0) adyacentes.push(estaciones[25]);
-    if(adyacencia[estacion.id] == undefined) adyacencia[estacion.id] = adyacentes;
+    graph.set(estacion.id,adyacentes)
 });
 
-for (let key in adyacencia) {
-    console.log("los adyacentes de " +estaciones.find(estacion=>estacion.id==key).estacion+" son");
-    adyacencia[key].forEach(estacion=> console.log("   "+estacion.estacion));
-}
+console.log(graph)
+
+
+
+
+
+
 
 
 //Circulo rojo para estacion
@@ -421,26 +441,7 @@ const routeE = [
 
 L.polyline(routeE, { color: 'purple', weight: 5 }).addTo(map);
 
-var rad = function(x) {
-    return x * Math.PI / 180;
-};
-  
-var getDistance = function(p1, p2) {
-    var R = 6378137; 
-    var dLat = rad(p2.lat - p1.lat);
-    var dLong = rad(p2.long - p1.long);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
-      Math.sin(dLong / 2) * Math.sin(dLong / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d; 
-};
 
-
-
-let distancia = getDistance(estaciones[0],estaciones[2]);
-console.log(distancia);
 
 
 // L.marker([-34.6096, -58.3730]).addTo(map).bindPopup("Plaza de Mayo");

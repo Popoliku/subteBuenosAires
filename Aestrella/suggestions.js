@@ -3,7 +3,7 @@ const stations = [
     "Alberti",
     "Avenida de Mayo",
     "Belgrano",
-    "Bolívar",
+    "Bolivar",
     "Callao (línea B)",
     "Callao (línea D)",
     "Carlos Pellegrini",
