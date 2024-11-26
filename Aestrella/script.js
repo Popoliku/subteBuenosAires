@@ -1,4 +1,5 @@
 document.getElementById("findPathBtn").addEventListener("click", () => {
+    var draw;
     const startStation = document.getElementById("start").value.trim();
     const endStation = document.getElementById("end").value.trim();
 
@@ -18,24 +19,24 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
-    if(startStation.toLowerCase()=="callao (línea d)") a = estaciones[3];
-    if(startStation.toLowerCase()=="callao (línea b)") a = estaciones[9];
-    if(startStation.toLowerCase()=="independencia (línea c)") a = estaciones[25];
-    if(startStation.toLowerCase()=="independencia (línea e)") a = estaciones[30];
-    if(endStation.toLowerCase()=="callao (línea d)") b = estaciones[3];
-    if(endStation.toLowerCase()=="callao (línea b)") b = estaciones[9];
-    if(endStation.toLowerCase()=="independencia (línea c)") b = estaciones[25];
-    if(endStation.toLowerCase()=="independencia (línea e)") b = estaciones[30];
+    if (startStation.toLowerCase() == "callao (línea d)") a = estaciones[3];
+    if (startStation.toLowerCase() == "callao (línea b)") a = estaciones[9];
+    if (startStation.toLowerCase() == "independencia (línea c)") a = estaciones[25];
+    if (startStation.toLowerCase() == "independencia (línea e)") a = estaciones[30];
+    if (endStation.toLowerCase() == "callao (línea d)") b = estaciones[3];
+    if (endStation.toLowerCase() == "callao (línea b)") b = estaciones[9];
+    if (endStation.toLowerCase() == "independencia (línea c)") b = estaciones[25];
+    if (endStation.toLowerCase() == "independencia (línea e)") b = estaciones[30];
 
-    if(!a && !b){
+    if (!a && !b) {
         document.getElementById("result").innerText = "Estaciones de inicio y destino inválidos";
         return;
     }
-    if(!a){
+    if (!a) {
         document.getElementById("result").innerText = "Estación de inicio inválido";
         return;
     }
-    if(!b){
+    if (!b) {
         document.getElementById("result").innerText = "Estación de destino inválido";
         return;
     }
@@ -47,58 +48,46 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     load.classList.remove("hidden");
 
+
+
+
+    var mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
+
+    // jiji(a,b);
+    console.log(a.id, b.id);
+    const path = Astar(a.id, b.id);
+    const route = [];
+
+    console.log("Camino optimo es: ")
+    var camino = "";
+    var first = true;
+    for (var x in path) {
+        if (!first) camino += " -> ";
+        const station = estaciones.find(estacion => estacion.id == path[x]);
+        camino += station.estacion;
+        route.push([station.lat, station.long]);
+        first = false;
+    }
+
+    // console.log(route);
+    mockPath += camino;
+
+    if(draw){
+        map.removeLayer(draw);
+    }
+    draw = L.polyline(route, {
+        color: 'black',
+        weight: 15,
+        // snakingSpeed: 300 // Speed of the animation
+    });
+
+    // Add the polyline to the map and start the animation
+    draw.addTo(map);//.snakeIn();
+
+
     sleep(1000).then(() => {
         load.classList.add("hidden");
-
-
-        var mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
-
-        // jiji(a,b);
-        console.log(a.id,b.id);
-        const path = Astar(a.id,b.id);
-
-        console.log("Camino optimo es: ")
-        var camino = "";
-        var first=true;
-        for(var x in path){
-            if(!first) camino += " -> ";
-            camino += estaciones.find(estacion => estacion.id == path[x]).estacion;
-            first=false;
-        }
-
-        mockPath += camino;
-
         document.getElementById("result").innerText = mockPath;
-
-
-
-        //A*
-
-        /*
-
-Start             End
-        A             B
-        |             |
-        |             |
-        |             |
-        |             |
-        |             |
-        |             |
-        C             D
-
-
-        */
-
-        // const pq = new PriorityQueue({ comparator: (a, b) => a - b });
-        // pq.queue(5);
-        // pq.queue(1);
-        // pq.queue(3);
-
-        // console.log(pq.dequeue()); // 1
-        // console.log(pq.dequeue()); // 3
-
-
-
 
     });
 
@@ -125,7 +114,7 @@ const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 });
 
 const satellite = L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
         noWrap: true
@@ -235,24 +224,24 @@ const lineaE = [
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
 
-const graph = new Map(); 
-estaciones.forEach(estacion=>{
-    let adyacentes = estaciones.filter(station=>(estacion.linea==station.linea) && 
-    (station.id==estacion.id-1 || station.id==estacion.id+1));
-    if(estacion.id==8.0) adyacentes.push(estaciones[22]);
-    if(estacion.id==2.0) adyacentes.push(estaciones[7],estaciones[22]);
-    if(estacion.id==23.0) adyacentes.push(estaciones[1],estaciones[7]);
+const graph = new Map();
+estaciones.forEach(estacion => {
+    let adyacentes = estaciones.filter(station => (estacion.linea == station.linea) &&
+        (station.id == estacion.id - 1 || station.id == estacion.id + 1));
+    if (estacion.id == 8.0) adyacentes.push(estaciones[22]);
+    if (estacion.id == 2.0) adyacentes.push(estaciones[7], estaciones[22]);
+    if (estacion.id == 23.0) adyacentes.push(estaciones[1], estaciones[7]);
 
-    if(estacion.id==15.0) adyacentes.push(estaciones[23]);
-    if(estacion.id==24.0) adyacentes.push(estaciones[14]);
+    if (estacion.id == 15.0) adyacentes.push(estaciones[23]);
+    if (estacion.id == 24.0) adyacentes.push(estaciones[14]);
 
-    if(estacion.id==13.0) adyacentes.push(estaciones[0],estaciones[28]);
-    if(estacion.id==1.0) adyacentes.push(estaciones[12],estaciones[28]);
-    if(estacion.id==29.0) adyacentes.push(estaciones[0],estaciones[12]);
+    if (estacion.id == 13.0) adyacentes.push(estaciones[0], estaciones[28]);
+    if (estacion.id == 1.0) adyacentes.push(estaciones[12], estaciones[28]);
+    if (estacion.id == 29.0) adyacentes.push(estaciones[0], estaciones[12]);
 
-    if(estacion.id==26.0) adyacentes.push(estaciones[30]);
-    if(estacion.id==31.0) adyacentes.push(estaciones[25]);
-    graph.set(estacion.id,adyacentes)
+    if (estacion.id == 26.0) adyacentes.push(estaciones[30]);
+    if (estacion.id == 31.0) adyacentes.push(estaciones[25]);
+    graph.set(estacion.id, adyacentes)
 });
 
 console.log(graph)
@@ -305,7 +294,7 @@ lineaD.forEach(estacion => {
 lineaB.forEach(estacion => {
     const marker = L.marker([estacion.lat, estacion.long], { icon: customDivIconB }).addTo(map).bindPopup("Custom Div Icon Marker");
     marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
-    
+
 });
 
 lineaA.forEach(estacion => {
