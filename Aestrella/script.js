@@ -53,8 +53,6 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
         var mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
 
-
-
         // jiji(a,b);
         const path = Astar(a.id,b.id);
 
@@ -114,12 +112,33 @@ console.log("Script loaded");
 const map = L.map('map').setView([-34.6083, -58.38], 13); // Inicializar en Buenos Aires 
 
 //Anadir el mapa
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     noWrap: true,
     updateWhenIdle: true
 }).addTo(map);
 
+const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+});
+
+const satellite = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+    {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+        noWrap: true
+    }
+);
+
+streets.addTo(map);
+
+L.control.layers(
+    {
+        "Streets": streets,
+        "Satellite": satellite
+    }
+).addTo(map);
 
 map.setMinZoom(12); // Prevent excessive zooming out
 map.setMaxZoom(18); // Prevent excessive zooming in
