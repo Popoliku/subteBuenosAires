@@ -18,12 +18,12 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
-    if(startStation.toLowerCase()=="callao (línea d)") a = estaciones[0];
-    if(startStation.toLowerCase()=="callao (línea b)") a = estaciones[3];
+    if(startStation.toLowerCase()=="callao (línea d)") a = estaciones[3];
+    if(startStation.toLowerCase()=="callao (línea b)") a = estaciones[9];
     if(startStation.toLowerCase()=="independencia (línea c)") a = estaciones[25];
     if(startStation.toLowerCase()=="independencia (línea e)") a = estaciones[30];
-    if(endStation.toLowerCase()=="callao (línea d)") b = estaciones[0];
-    if(endStation.toLowerCase()=="callao (línea b)") b = estaciones[3];
+    if(endStation.toLowerCase()=="callao (línea d)") b = estaciones[3];
+    if(endStation.toLowerCase()=="callao (línea b)") b = estaciones[9];
     if(endStation.toLowerCase()=="independencia (línea c)") b = estaciones[25];
     if(endStation.toLowerCase()=="independencia (línea e)") b = estaciones[30];
 
@@ -54,6 +54,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         var mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
 
         // jiji(a,b);
+        console.log(a.id,b.id);
         const path = Astar(a.id,b.id);
 
         console.log("Camino optimo es: ")
