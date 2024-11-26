@@ -219,8 +219,10 @@ estaciones.forEach(estacion=>{
 });
 
 for (let key in adyacencia) {
-    console.log(`estacion ${key} es adyacente a ${adyacencia[key]}`);
-  }
+    console.log("los adyacentes de " +estaciones.find(estacion=>estacion.id==key).estacion+" son");
+    adyacencia[key].forEach(estacion=> console.log("   "+estacion.estacion));
+}
+
 
 //Circulo rojo para estacion
 const customDivIconD = L.divIcon({
