@@ -1,6 +1,7 @@
 var draw;
 
 document.getElementById("findPathBtn").addEventListener("click", () => {
+    document.getElementById("result").innerText = "";
     const startStation = document.getElementById("start").value.trim();
     const endStation = document.getElementById("end").value.trim();
 
@@ -79,14 +80,14 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     draw = L.polyline(route, {
         color: 'black',
         weight: 15,
-        // snakingSpeed: 300 // Speed of the animation
+        snakingSpeed: 150 // Speed of the animation
     });
 
     // Add the polyline to the map and start the animation
-    draw.addTo(map);//.snakeIn();
+    draw.addTo(map).snakeIn();
 
 
-    sleep(1000).then(() => {
+    sleep(route.length*250).then(() => {
         load.classList.add("hidden");
         document.getElementById("result").innerText = mockPath;
 
