@@ -4,6 +4,7 @@ var hihihaha;
 
 document.getElementById("findPathBtn").addEventListener("click", () => {
     document.getElementById("result").innerText = "";
+    if(hihihaha) hihihaha.forEach(marca=>map.removeLayer(marca));
     const startStation = document.getElementById("start").value.trim();
     const endStation = document.getElementById("end").value.trim();
 
