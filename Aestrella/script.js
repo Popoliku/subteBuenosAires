@@ -306,24 +306,33 @@ const lineaE = marcas.filter(estacion=>estacion.linea=="E");
 
 
 lineaD.forEach(estacion => {
-    estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
+    estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada   
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaB.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
-
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaA.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaC.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaE.forEach(estacion => {
-    estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
+    estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada 
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseout', function () { this.closePopup(); });   
 });
 
 
