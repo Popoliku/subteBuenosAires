@@ -74,7 +74,7 @@ function Astar(startPoint, endPoint) {
     distance.set(startPoint, 0)
     parents.set(startPoint, null);
 
-    const endStation = estaciones.find(estacion => estacion.id == endStation.id);
+    const endStation = estaciones.find(estacion => estacion.id == endPoint);
 
     while (pq.length != 0 && pq.peek().node !== endPoint) {
         //desencola y aÃ±ade al path 
@@ -94,7 +94,7 @@ function Astar(startPoint, endPoint) {
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = getDistance(origin, dest) + heuristic(origin, endPoint);
+            const w = getDistance(origin, dest) + heuristic(origin, endStation);
 
             if (!distance.has(v)) distance.set(v, INF);
 
