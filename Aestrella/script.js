@@ -22,6 +22,11 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         return;
     }
 
+    if(endStation == startStation){
+        document.getElementById("result").innerText = "gira 360 grados y has llegado a tu destino";
+        return;
+    }
+
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
     if (startStation.toLowerCase() == "callao (línea d)") a = estaciones[3];
