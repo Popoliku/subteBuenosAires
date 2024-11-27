@@ -81,7 +81,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
-        color: 'black',
+        color: 'yellow',
         weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
