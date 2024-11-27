@@ -2,16 +2,26 @@
 
 const INF = 1e9;
 
-
-
-function heuristic(node1, node2) {//TODO placeholder cambiar por la heuristica correcta
-    return 0;//Math.sqrt(Math.pow(node1.latitud - node2.latitud, 2) + Math.pow(node1.longitud - node2.longitud, 2));
-}
-
 var rad = function (x) {
     return x * Math.PI / 180;
 };
 
+/**
+ * 
+ * @param {*} currentNode nodo en el que se encuentra el algoritmo en ese momento
+ * @param {*} endNode meta o destino
+ * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
+ */
+function heuristic(currentNode, endNode){
+    return getDistance(currentNode, endNode);
+}
+
+/**
+ * 
+ * @param {*} p1 punto1
+ * @param {*} p2 punto2
+ * @returns la distancia entre p1 y p2 teniendo en cuenta la curbatura de la tierra
+ */
 var getDistance = function (p1, p2) {
     var R = 6378137;
     var dLat = rad(p2.lat - p1.lat);
@@ -24,7 +34,7 @@ var getDistance = function (p1, p2) {
     return d;
 };
 
-
+//Debug function
 function calcDistance(x, y) {
     console.log(x, y);
     const d = getDistance(x, y);
@@ -33,9 +43,13 @@ function calcDistance(x, y) {
 }
 
 
-
+/**
+ * 
+ * @param {*} startPoint nodo de partida
+ * @param {*} endPoint    nodo meta
+ * @returns debuelve el camino minimo entre startPoint y endPoint en una lista de strings empezando por la izquierda hasta la derecha
+ */
 function Astar(startPoint, endPoint) {
-    console.log("HOLA");
 
     const pq = new PriorityQueue({ comparator: (a, b) => a.w - b.w }); //w es la distancia mas cercana -> orden de prioridad
     const visited = new Set();
@@ -44,7 +58,7 @@ function Astar(startPoint, endPoint) {
 
     pq.queue(
         { node: startPoint, w: heuristic(startPoint, endPoint) } //node : string 
-    );// se encola el objeto del nodo desde donde viene y el peso acumulado
+    );
 
     distance.set(startPoint, 0)
     parents.set(startPoint, null);
@@ -58,10 +72,7 @@ function Astar(startPoint, endPoint) {
         visited.add(currentNode);
 
         //accede al grafo para ver que nodos son adyacentes y los encola
-        console.log("node: ", currentNode);
         const adjacentList = graph.get(currentNode);
-
-        console.log("adjacentList: ", adjacentList);
 
         adjacentList.forEach((node) => {
             const v = node.id;
@@ -71,7 +82,7 @@ function Astar(startPoint, endPoint) {
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = calcDistance(origin, dest) + heuristic(origin, dest);
+            const w = getDistance(origin, dest) + heuristic(origin, dest);
 
             if (!distance.has(v)) distance.set(v, INF);
 
@@ -79,12 +90,9 @@ function Astar(startPoint, endPoint) {
                 distance.set(v, distance.get(u) + w);
                 pq.queue({ node: v, w: distance.get(v) });
                 parents.set(v, u);
-                console.log("reduced",v);
             }
         });
-    }
-    console.log(distance);
-    console.log(parents);
+    }//genera el camino minimo en path
     let path = [];
     let currentNode = endPoint;
 
@@ -92,6 +100,6 @@ function Astar(startPoint, endPoint) {
         path.unshift(currentNode);
         currentNode = parents.get(currentNode);
     }
-    console.log("path: " + path);
     return path;
 }
+
