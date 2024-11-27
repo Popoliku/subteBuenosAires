@@ -22,6 +22,11 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         return;
     }
 
+    if(endStation == startStation){
+        document.getElementById("result").innerText = "gira 360 grados y has llegado a tu destino";
+        return;
+    }
+
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
     if (startStation.toLowerCase() == "callao (línea d)") a = estaciones[3];
@@ -189,7 +194,7 @@ const estaciones = [
     { "long": -58.3736842242, "lat": -34.6092424289, "id": 29.0, "estacion": "BOLIVAR", "linea": "E" },
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
-    { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSE", "linea": "E" },
+    { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSÉ", "linea": "E" },
     { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RÍOS", "linea": "E" },
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
