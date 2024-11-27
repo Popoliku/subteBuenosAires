@@ -23,7 +23,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     }
 
     if(endStation == startStation){
-        document.getElementById("result").innerText = "😐";
+        document.getElementById("result").innerText = "gira 360 grados y has llegado a tu destino";
         return;
     }
 
@@ -100,6 +100,10 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
             var color = marcas.find(marca=>marca.lat==estacion[0] && marca.long==estacion[1]).color;
             var icono = createCustomDivIcon(color);
             const marker = L.marker([estacion[0], estacion[1]], { icon: icono}).addTo(map).bindPopup("Custom Div Icon Marker");
+            var station = estaciones.find(est=>estacion[0]==est.lat && estacion[1]==est.long);
+            marker.bindPopup(`<b>${station.estacion}</b><br>Linea: ${station.linea}`);
+            marker.on('mouseover',function(){marker.openPopup()});
+            marker.on('mouseout',function(){marker.closePopup()});
             hihihaha.push(marker);
         },200*index);
     });
@@ -190,7 +194,7 @@ const estaciones = [
     { "long": -58.3736842242, "lat": -34.6092424289, "id": 29.0, "estacion": "BOLIVAR", "linea": "E" },
     { "long": -58.3775808865, "lat": -34.6128491058, "id": 30.0, "estacion": "BELGRANO", "linea": "E" },
     { "long": -58.3815349417, "lat": -34.617937394, "id": 31.0, "estacion": "INDEPENDENCIA", "linea": "E" },
-    { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSE", "linea": "E" },
+    { "long": -58.3851485496, "lat": -34.6223394919, "id": 32.0, "estacion": "SAN JOSÉ", "linea": "E" },
     { "long": -58.3915117, "lat": -34.6227196661, "id": 33.0, "estacion": "ENTRE RÍOS", "linea": "E" },
     { "long": -58.3970680747, "lat": -34.6231098658, "id": 34.0, "estacion": "PICHINCHA", "linea": "E" },
 ];
