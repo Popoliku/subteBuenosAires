@@ -178,7 +178,7 @@ const estaciones = [
     { "long": -58.3742677264, "lat": -34.6085590739, "id": 13.0, "estacion": "PERÚ", "linea": "A" },
     { "long": -58.3790851531, "lat": -34.6088817212, "id": 14.0, "estacion": "PIEDRAS", "linea": "A" },
     { "long": -58.382232401, "lat": -34.6090998066, "id": 15.0, "estacion": "LIMA", "linea": "A" },
-    { "long": -58.3867771941, "lat": -34.6094125865, "id": 16.0, "estacion": "SAENZ PE\u00d1A", "linea": "A" },
+    { "long": -58.3867771941, "lat": -34.6094125865, "id": 16.0, "estacion": "SAÉNZ PE\u00d1A", "linea": "A" },
     { "long": -58.3926688247, "lat": -34.6092256843, "id": 17.0, "estacion": "CONGRESO", "linea": "A" },
     { "long": -58.3984269918, "lat": -34.6096459617, "id": 18.0, "estacion": "PASCO", "linea": "A" },
     { "long": -58.4012075342, "lat": -34.6098335784, "id": 19.0, "estacion": "ALBERTI", "linea": "A" },
