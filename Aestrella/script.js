@@ -86,7 +86,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
-        color: 'cyan',
+        color: 'yellow',
         weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
@@ -408,7 +408,6 @@ function handler(inputField, markerGroup) {
             background-image: url('llegada.png'); 
             background-size: cover; 
             background-position: center top; 
-            filter: hue-rotate(0deg) saturate(100%) brightness(0.8) sepia(1) saturate(500%) hue-rotate(-50deg);
         "></div>`, iconSize: [40, 70]
         });
 
