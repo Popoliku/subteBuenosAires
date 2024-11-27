@@ -95,6 +95,10 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
             var color = marcas.find(marca=>marca.lat==estacion[0] && marca.long==estacion[1]).color;
             var icono = createCustomDivIcon(color);
             const marker = L.marker([estacion[0], estacion[1]], { icon: icono}).addTo(map).bindPopup("Custom Div Icon Marker");
+            var station = estaciones.find(est=>estacion[0]==est.lat && estacion[1]==est.long);
+            marker.bindPopup(`<b>${station.estacion}</b><br>Linea: ${station.linea}`);
+            marker.on('mouseover',function(){marker.openPopup()});
+            marker.on('mouseout',function(){marker.closePopup()});
             hihihaha.push(marker);
         },200*index);
     });
