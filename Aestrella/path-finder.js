@@ -13,7 +13,7 @@ var rad = function (x) {
  * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
  */
 function heuristic(currentNode, endNode){
-    return getDistance(currentNode, endNode);
+    return calcDistance(currentNode, endNode);
 }
 
 /**
@@ -45,10 +45,17 @@ const vel = {
 //Debug function
 function calcDistance(x, y) {
     console.log(x, y);
-    const d = getDistance(x, y);
+    var d = getDistance(x, y);
     console.log("Desde ", x.estacion, " hasta ", y.estacion, " la distancia es => ", d);
-    console.log("Tiempo desde",x.estacion," hasta ", y.estacion, " es => ", d/vel[x.linea]);
+    const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
+    console.log("Tiempo desde",x.estacion," hasta ", y.estacion, " es => ", minutos, " minutos");
     return d;
+}
+
+function getMinutes(x,y){
+    var d = getDistance(x, y);
+    const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
+    return minutos;
 }
 
 
@@ -94,8 +101,8 @@ function Astar(startPoint, endPoint) {
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = getDistance(origin, dest) + heuristic(origin, endStation);
-
+            const w = calcDistance(origin, dest) + heuristic(origin, endStation);
+            // console.log("W: " + w);
             if (!distance.has(v)) distance.set(v, INF);
 
             if (distance.get(u) + w < distance.get(v)) {
@@ -112,6 +119,14 @@ function Astar(startPoint, endPoint) {
         path.unshift(currentNode);
         currentNode = parents.get(currentNode);
     }
+
+    let total=0;
+    for(let i = 0; i<path.length - 1; i++){
+        const origin=estaciones.find(estacion => estacion.id == path[i]);
+        const dest=estaciones.find(estacion => estacion.id == path[i+1]);
+        total += getMinutes(origin,dest);
+    }
+    console.log("tiempo total: " + total);
     return path;
 }
 
