@@ -86,7 +86,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
-        color: 'yellow',
+        color: 'black',
         weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
@@ -105,7 +105,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
             marker.on('mouseover',function(){marker.openPopup()});
             marker.on('mouseout',function(){marker.closePopup()});
             hihihaha.push(marker);
-        },200*index);
+        },290*index);
     });
 
 
