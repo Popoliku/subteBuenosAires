@@ -67,6 +67,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     console.log(a.id, b.id);
     const path = Astar(a.id, b.id);
     route = [];
+    
 
     console.log("Camino optimo es: ")
     var camino = "";
@@ -80,17 +81,13 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     }
 
     // console.log(route);
-    mockPath += camino;
+    // mockPath += camino;
 
     if(draw){
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
-<<<<<<< HEAD
         color: 'yellow',
-=======
-        color: 'black',
->>>>>>> 73d0877a69fa9e20170f3c02ecc06154185eac53
         weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
@@ -103,7 +100,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         setTimeout(() => {
             var color = marcas.find(marca=>marca.lat==estacion[0] && marca.long==estacion[1]).color;
             var icono = createCustomDivIcon(color);
-            const marker = L.marker([estacion[0], estacion[1]], { icon: icono}).addTo(map).bindPopup("Custom Div Icon Marker");
+            const marker = L.marker([estacion[0], estacion[1]], { icon: icono}).addTo(map);
             var station = estaciones.find(est=>estacion[0]==est.lat && estacion[1]==est.long);
             marker.bindPopup(`<b>${station.estacion}</b><br>Linea: ${station.linea}`);
             marker.on('mouseover',function(){marker.openPopup()});
@@ -115,8 +112,8 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     sleep(route.length*240).then(() => {
         load.classList.add("hidden");
-        document.getElementById("result").innerText = mockPath;
-
+        // document.getElementById("result").innerText = mockPath;
+        showRoute(path);
     });
 
 
