@@ -22,6 +22,11 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         return;
     }
 
+    if(endStation == startStation){
+        document.getElementById("result").innerText = "😐";
+        return;
+    }
+
     let a = estaciones.find(estacion => estacion.estacion.toLowerCase() == startStation.toLowerCase());
     let b = estaciones.find(estacion => estacion.estacion.toLowerCase() == endStation.toLowerCase());
     if (startStation.toLowerCase() == "callao (línea d)") a = estaciones[3];
@@ -81,7 +86,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
-        color: 'black',
+        color: 'cyan',
         weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
