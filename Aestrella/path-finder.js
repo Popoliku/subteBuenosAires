@@ -82,7 +82,7 @@ function Astar(startPoint, endPoint) {
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = getDistance(origin, dest) + heuristic(origin, dest);
+            const w = getDistance(origin, dest) + heuristic(origin, endPoint);
 
             if (!distance.has(v)) distance.set(v, INF);
 
