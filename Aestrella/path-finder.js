@@ -34,13 +34,24 @@ var getDistance = function (p1, p2) {
     return d;
 };
 
+const vel = {
+    "A":28.17391304,
+    "B":30.7826087,
+    "C":20.30769231,
+    "D": 24.46153846,
+    "E":29.75
+}
+
 //Debug function
 function calcDistance(x, y) {
     console.log(x, y);
     const d = getDistance(x, y);
     console.log("Desde ", x.estacion, " hasta ", y.estacion, " la distancia es => ", d);
+    console.log("Tiempo desde",x.estacion," hasta ", y.estacion, " es => ", d/vel[x.linea]);
     return d;
 }
+
+
 
 
 /**
@@ -63,6 +74,7 @@ function Astar(startPoint, endPoint) {
     distance.set(startPoint, 0)
     parents.set(startPoint, null);
 
+    const endStation = estaciones.find(estacion => estacion.id == endStation.id);
 
     while (pq.length != 0 && pq.peek().node !== endPoint) {
         //desencola y aÃ±ade al path 
