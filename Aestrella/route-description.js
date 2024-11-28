@@ -65,7 +65,7 @@ function showRoute(ruta) {
         if (index == 0) {
             const stepDescription = document.createElement("p");
             stepDescription.classList.add("text-gray-800", "font-medium");
-            stepDescription.innerHTML = `Camina hasta la estacion <span class="font-semibold">${station.estacion}</span>`;
+            stepDescription.innerHTML = `Camina hasta la estación <span class="font-semibold">${station.estacion}</span>`;
             topLineDiv.appendChild(stepDescription);
         } else {
             const stepDescription = document.createElement("p");
