@@ -109,7 +109,7 @@ function Astar(startPoint, endPoint) {
 
             if (distance.get(u) + w < distance.get(v)) {
                 distance.set(v, distance.get(u) + w);
-                pq.queue({ node: v, w: distance.get(v) + heuristic(origin, endStation) });
+                pq.queue({ node: v, w: distance.get(v) + heuristic(origin, endStation) }); //f(n) = g(n) + h(n)
                 parents.set(v, u);
             }
         });
