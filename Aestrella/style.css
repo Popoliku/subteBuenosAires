@@ -41,6 +41,10 @@
     animation: slideDown 1s ease-out;
  }
 
+ .container-animation-down2{
+    animation:slideDown 1.5s;
+ }
+
  @keyframes slideDown {
      from {
          transform: translateY(-10px);

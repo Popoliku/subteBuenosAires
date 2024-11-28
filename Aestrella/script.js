@@ -99,8 +99,9 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     route.forEach((estacion,index)=>{
         setTimeout(() => {
             var color = marcas.find(marca=>marca.lat==estacion[0] && marca.long==estacion[1]).color;
-            var icono = createCustomDivIcon(color);
-            const marker = L.marker([estacion[0], estacion[1]], { icon: icono}).addTo(map);
+            var icono = createCustomDivIcon(color,estacion);
+            const marker = L.marker([estacion[0], estacion[1]], { icon: icono})
+            marker.addTo(map);
             var station = estaciones.find(est=>estacion[0]==est.lat && estacion[1]==est.long);
             marker.bindPopup(`<b>${station.estacion}</b><br>Linea: ${station.linea}`);
             marker.on('mouseover',function(){marker.openPopup()});
@@ -232,10 +233,45 @@ console.log(graph)
 
 //Circulo rojo para estacion
 
-function createCustomDivIcon(color) { 
+function createCustomDivIcon(color,estacion) { 
+    const at = estaciones.map(estacion=>{
+        var icono;
+        var color;
+        if(estacion.linea=="D") {
+            icono = customDivIconD;
+            color = "green";
+        }
+        if(estacion.linea=="C") {
+            icono = customDivIconC;
+            color = "blue";
+        }
+        if(estacion.linea=="A") {
+            icono = customDivIconA;
+            color = "lightblue";
+        }
+        if(estacion.linea=="E") {
+            icono = customDivIconE;
+            color = "purple";
+        }
+        if(estacion.linea=="B") {
+            icono = customDivIconB;
+            color = "red";
+        }
+        let atributos = {
+            "long": estacion.long,
+            "lat": estacion.lat,
+            "id": estacion.id,
+            "estacion": estacion.estacion,
+            "linea": estacion.linea,
+           // "marker": L.marker([estacion.lat, estacion.long], { icon: icono }).addTo(map).bindPopup("Custom Div Icon Marker"),
+            "color": color
+        }
+        return atributos;
+    });
+    
     return L.divIcon({ 
         className: 'custom-div-icon', 
-        html: `<div style="background-color: #000000; width: 20px; height: 20px; border: 4px solid ${color}; border-radius: 50%;"></div>`, 
+        html: `<div style="background-color: ${color}; width: 20px; height: 20px; ${at["color"]} border: 4px solid; border-radius: 50%;"></div>`, 
         iconSize: [20, 20] 
     }); 
 }
