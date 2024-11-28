@@ -87,7 +87,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
-        color: 'yellow',
+        color: '#17acfc',
         weight: 7,
         snakingSpeed: 200 // Speed of the animation
     });
@@ -99,7 +99,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     route.forEach((estacion,index)=>{
         setTimeout(() => {
             var color = marcas.find(marca=>marca.lat==estacion[0] && marca.long==estacion[1]).color;
-            var icono = createCustomDivIcon(color,estacion);
+            var icono = createCustomDivIcon("#25d3fa",estacion);
             const marker = L.marker([estacion[0], estacion[1]], { icon: icono})
             marker.addTo(map);
             var station = estaciones.find(est=>estacion[0]==est.lat && estacion[1]==est.long);
@@ -263,7 +263,6 @@ function createCustomDivIcon(color,estacion) {
             "id": estacion.id,
             "estacion": estacion.estacion,
             "linea": estacion.linea,
-           // "marker": L.marker([estacion.lat, estacion.long], { icon: icono }).addTo(map).bindPopup("Custom Div Icon Marker"),
             "color": color
         }
         return atributos;
