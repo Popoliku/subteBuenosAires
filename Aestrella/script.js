@@ -130,8 +130,10 @@ const map = L.map('map').setView([-34.6083, -58.38], 14); // Inicializar en Buen
 
 //Anadir el mapa
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.carto.com/">CartoDB</a>',
+    subdomains: 'abcd',
+    maxZoom: 19,
     noWrap: true,
     updateWhenIdle: true
 }).addTo(map);
@@ -527,12 +529,18 @@ L.polyline(routeE, { color: 'purple', weight: 6 }).addTo(map);
 
 
 
-
 const transbordos = [
     [estaciones[25].lat,estaciones[25].long],
-    [estaciones[30].lat,estaciones[30].long]
+    [estaciones[30].lat,estaciones[30].long],
+
+]
+const dos = [
+    [estaciones[28].lat,estaciones[28].long],
+    [estaciones[12].lat,estaciones[12].long],
+    [estaciones[0].lat,estaciones[0].long]
 ]
 L.polyline(transbordos, { color: 'white', weight: 23 }).addTo(map);
+L.polyline(dos, { color: 'white', weight: 23 }).addTo(map);
 
 // L.marker([-34.6096, -58.3730]).addTo(map).bindPopup("Plaza de Mayo");
 // L.marker([-34.6022, -58.3810]).addTo(map).bindPopup("Leandro N. Alem");
