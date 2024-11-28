@@ -19,7 +19,7 @@ function showRoute(ruta) {
     
     route.forEach((station, index) => {
         const stepDiv = document.createElement("div");
-        stepDiv.classList.add("flex", "items-start", "space-x-3");
+        stepDiv.classList.add("flex", "items-start", "space-x-3", "container-animation-down");
 
         const numberDiv = document.createElement("div");
         numberDiv.classList.add("flex-shrink-0");

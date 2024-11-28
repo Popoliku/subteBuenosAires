@@ -8,6 +8,7 @@
      animation: growIn 0.2s ease-out;
  }
 
+
  @keyframes growIn {
      from {
          transform: scale(0);
@@ -36,6 +37,9 @@
      animation: fadeInUp 0.5s ease-out;
  }
 
+ .container-animation-down{
+    animation: slideDown 0.5s ease-out;
+ }
 
  @keyframes slideDown {
      from {
