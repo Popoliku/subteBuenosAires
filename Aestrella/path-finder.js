@@ -46,15 +46,17 @@ const vel = {
 function calcDistance(x, y) {
     console.log(x, y);
     var d = getDistance(x, y);
-    console.log("Desde ", x.estacion, " hasta ", y.estacion, " la distancia es => ", d);
+    // console.log("Desde ", x.estacion, " hasta ", y.estacion, " la distancia es => ", d);
     const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
-    console.log("Tiempo desde",x.estacion," hasta ", y.estacion, " es => ", minutos, " minutos");
+    // console.log("Tiempo desde",x.estacion," hasta ", y.estacion, " es => ", minutos, " minutos");
     return d;
 }
 
 function getMinutes(x,y){
     var d = getDistance(x, y);
     const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
+    // console.log("minutos", minutos);
+    // console.log("distancia",d);
     return minutos;
 }
 
