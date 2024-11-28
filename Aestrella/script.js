@@ -114,6 +114,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         load.classList.add("hidden");
         // document.getElementById("result").innerText = mockPath;
         showRoute(path);
+        
     });
 
 
