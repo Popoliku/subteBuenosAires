@@ -103,13 +103,13 @@ function Astar(startPoint, endPoint) {
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = calcDistance(origin, dest) + heuristic(origin, endStation);
+            const w = calcDistance(origin, dest);
             // console.log("W: " + w);
             if (!distance.has(v)) distance.set(v, INF);
 
             if (distance.get(u) + w < distance.get(v)) {
                 distance.set(v, distance.get(u) + w);
-                pq.queue({ node: v, w: distance.get(v) });
+                pq.queue({ node: v, w: distance.get(v) + heuristic(origin, endStation) });
                 parents.set(v, u);
             }
         });
