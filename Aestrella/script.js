@@ -4,7 +4,7 @@ var hihihaha;
 
 document.getElementById("findPathBtn").addEventListener("click", () => {
     document.getElementById("result").innerText = "";
-    if(hihihaha) hihihaha.forEach(marca=>map.removeLayer(marca));
+    if (hihihaha) hihihaha.forEach(marca => map.removeLayer(marca));
     const startStation = document.getElementById("start").value.trim();
     const endStation = document.getElementById("end").value.trim();
 
@@ -22,7 +22,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
         return;
     }
 
-    if(endStation == startStation){
+    if (endStation == startStation) {
         document.getElementById("result").innerText = "gira 360 grados y has llegado a tu destino";
         return;
     }
@@ -67,7 +67,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     console.log(a.id, b.id);
     const path = Astar(a.id, b.id);
     route = [];
-    
+
 
     console.log("Camino optimo es: ")
     var camino = "";
@@ -83,7 +83,7 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
     // console.log(route);
     // mockPath += camino;
 
-    if(draw){
+    if (draw) {
         map.removeLayer(draw);
     }
     draw = L.polyline(route, {
@@ -94,30 +94,41 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     // Add the polyline to the map and start the animation
     draw.addTo(map).snakeIn();
-    
+
     hihihaha = [];
-    route.forEach((estacion,index)=>{
+    route.forEach((estacion, index) => {
         setTimeout(() => {
-            var color = marcas.find(marca=>marca.lat==estacion[0] && marca.long==estacion[1]).color;
-            var icono = createCustomDivIcon("#25d3fa",estacion);
-            const marker = L.marker([estacion[0], estacion[1]], { icon: icono})
+            var color = marcas.find(marca => marca.lat == estacion[0] && marca.long == estacion[1]).color;
+            var icono = createCustomDivIcon("#25d3fa", estacion);
+            const marker = L.marker([estacion[0], estacion[1]], { icon: icono })
             marker.addTo(map);
-            var station = estaciones.find(est=>estacion[0]==est.lat && estacion[1]==est.long);
+            var station = estaciones.find(est => estacion[0] == est.lat && estacion[1] == est.long);
             marker.bindPopup(`<b>${station.estacion}</b><br>Linea: ${station.linea}`);
-            marker.on('mouseover',function(){marker.openPopup()});
-            marker.on('mouseout',function(){marker.closePopup()});
+            marker.on('mouseover', function () { marker.openPopup() });
+            marker.on('mouseout', function () { marker.closePopup() });
             hihihaha.push(marker);
-        },290*index);
+        }, 290 * index);
     });
 
+    const toast = document.getElementById('toast');
 
-    sleep(route.length*240).then(() => {
+    // Make the toast visible
+
+    sleep(route.length * 100).then(() => {
+     toast.classList.add('show');
+       toast.classList.remove('hidden', 'hide');
+
+    });
+
+    sleep(route.length * 240).then(() => {
         load.classList.add("hidden");
-        // document.getElementById("result").innerText = mockPath;
         showRoute(path);
-        
     });
 
+    sleep(route.length * 440).then(() => {
+        toast.classList.remove('show');
+    toast.classList.add('hide');
+    });
 
 
 });
@@ -130,8 +141,8 @@ const map = L.map('map').setView([-34.6083, -58.38], 14); // Inicializar en Buen
 
 //Anadir el mapa
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.carto.com/">CartoDB</a>',
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CartoDB',
     subdomains: 'abcd',
     maxZoom: 19,
     noWrap: true,
@@ -235,27 +246,27 @@ console.log(graph)
 
 //Circulo rojo para estacion
 
-function createCustomDivIcon(color,estacion) { 
-    const at = estaciones.map(estacion=>{
+function createCustomDivIcon(color, estacion) {
+    const at = estaciones.map(estacion => {
         var icono;
         var color;
-        if(estacion.linea=="D") {
+        if (estacion.linea == "D") {
             icono = customDivIconD;
             color = "green";
         }
-        if(estacion.linea=="C") {
+        if (estacion.linea == "C") {
             icono = customDivIconC;
             color = "blue";
         }
-        if(estacion.linea=="A") {
+        if (estacion.linea == "A") {
             icono = customDivIconA;
             color = "lightblue";
         }
-        if(estacion.linea=="E") {
+        if (estacion.linea == "E") {
             icono = customDivIconE;
             color = "purple";
         }
-        if(estacion.linea=="B") {
+        if (estacion.linea == "B") {
             icono = customDivIconB;
             color = "red";
         }
@@ -269,12 +280,12 @@ function createCustomDivIcon(color,estacion) {
         }
         return atributos;
     });
-    
-    return L.divIcon({ 
-        className: 'custom-div-icon', 
-        html: `<div style="background-color: ${color}; width: 20px; height: 20px; ${at["color"]} border: 4px solid; border-radius: 50%;"></div>`, 
-        iconSize: [20, 20] 
-    }); 
+
+    return L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style="background-color: ${color}; width: 20px; height: 20px; ${at["color"]} border: 4px solid; border-radius: 50%;"></div>`,
+        iconSize: [20, 20]
+    });
 }
 
 const customDivIconD = L.divIcon({
@@ -307,26 +318,26 @@ const customDivIconE = L.divIcon({
     iconSize: [20, 20]
 });
 
-const marcas = estaciones.map(estacion=>{
+const marcas = estaciones.map(estacion => {
     var icono;
     var color;
-    if(estacion.linea=="D") {
+    if (estacion.linea == "D") {
         icono = customDivIconD;
         color = "green";
     }
-    if(estacion.linea=="C") {
+    if (estacion.linea == "C") {
         icono = customDivIconC;
         color = "blue";
     }
-    if(estacion.linea=="A") {
+    if (estacion.linea == "A") {
         icono = customDivIconA;
         color = "lightblue";
     }
-    if(estacion.linea=="E") {
+    if (estacion.linea == "E") {
         icono = customDivIconE;
         color = "purple";
     }
-    if(estacion.linea=="B") {
+    if (estacion.linea == "B") {
         icono = customDivIconB;
         color = "red";
     }
@@ -342,45 +353,45 @@ const marcas = estaciones.map(estacion=>{
     return atributos;
 });
 
-const lineaD = marcas.filter(estacion=>estacion.linea=="D");
+const lineaD = marcas.filter(estacion => estacion.linea == "D");
 
-const lineaB = marcas.filter(estacion=>estacion.linea=="B");
+const lineaB = marcas.filter(estacion => estacion.linea == "B");
 
-const lineaA = marcas.filter(estacion=>estacion.linea=="A");
+const lineaA = marcas.filter(estacion => estacion.linea == "A");
 
-const lineaC = marcas.filter(estacion=>estacion.linea=="C");
+const lineaC = marcas.filter(estacion => estacion.linea == "C");
 
-const lineaE = marcas.filter(estacion=>estacion.linea=="E");
+const lineaE = marcas.filter(estacion => estacion.linea == "E");
 
 
 lineaD.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada   
-    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); });
     estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaB.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
-    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); });
     estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaA.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
-    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); });
     estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaC.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada    
-    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); });
     estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 lineaE.forEach(estacion => {
     estacion.marker.bindPopup(`<b>${estacion.estacion}</b><br>Linea: ${estacion.linea}`); //saber que linea es la parada 
-    estacion.marker.on('mouseover', function (e) { this.openPopup(); }); 
-    estacion.marker.on('mouseout', function () { this.closePopup(); });   
+    estacion.marker.on('mouseover', function (e) { this.openPopup(); });
+    estacion.marker.on('mouseout', function () { this.closePopup(); });
 });
 
 
@@ -398,11 +409,11 @@ inputField1.addEventListener('input', () => handler(inputField1, endMarkers));
 inputField2.addEventListener('input', () => handler(inputField2, startMarkers));
 
 function handler(inputField, markerGroup) {
-    if(draw){
+    if (draw) {
         map.removeLayer(draw);
     }
 
-    if(hihihaha) hihihaha.forEach(marca=>map.removeLayer(marca));
+    if (hihihaha) hihihaha.forEach(marca => map.removeLayer(marca));
 
     console.log(`Input changed for: ${inputField.id}`);
 
@@ -455,8 +466,8 @@ function handler(inputField, markerGroup) {
         const marker = L.marker([matchedStation.lat, matchedStation.long], { icon: selected, zIndexOffset: 1000 })
             .addTo(map)
             .bindPopup(`<b>${matchedStation.estacion}</b><br>Linea: ${matchedStation.linea}`);
-        marker.on('mouseover',function(){this.openPopup()});
-        marker.on('mouseout',function(){this.closePopup()});
+        marker.on('mouseover', function () { this.openPopup() });
+        marker.on('mouseout', function () { this.closePopup() });
         markerGroup.push(marker); // Add to the correct marker group
     } else {
         console.log("No matching station found.");
@@ -530,24 +541,24 @@ L.polyline(routeE, { color: 'purple', weight: 6 }).addTo(map);
 
 
 const transboruno = [
-    [estaciones[28].lat,estaciones[28].long],
-    [estaciones[12].lat,estaciones[12].long],
-    [estaciones[0].lat,estaciones[0].long]
+    [estaciones[28].lat, estaciones[28].long],
+    [estaciones[12].lat, estaciones[12].long],
+    [estaciones[0].lat, estaciones[0].long]
 ]
 const transbordos = [
-    [estaciones[25].lat,estaciones[25].long],
-    [estaciones[30].lat,estaciones[30].long],
+    [estaciones[25].lat, estaciones[25].long],
+    [estaciones[30].lat, estaciones[30].long],
 
 ]
 const transbortres = [
-    [estaciones[14].lat,estaciones[14].long],
-    [estaciones[23].lat,estaciones[23].long],
+    [estaciones[14].lat, estaciones[14].long],
+    [estaciones[23].lat, estaciones[23].long],
 ]
 
 const transborcuatro = [
-    [estaciones[7].lat,estaciones[7].long],
-    [estaciones[1].lat,estaciones[1].long],
-    [estaciones[22].lat,estaciones[22].long]
+    [estaciones[7].lat, estaciones[7].long],
+    [estaciones[1].lat, estaciones[1].long],
+    [estaciones[22].lat, estaciones[22].long]
 ]
 
 L.polyline(transboruno, { color: 'white', weight: 23 }).addTo(map);

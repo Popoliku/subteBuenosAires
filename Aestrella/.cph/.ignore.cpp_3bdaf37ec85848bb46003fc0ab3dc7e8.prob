@@ -1,0 +1,1 @@
+{"name":"Local: ignore","url":"/home/sam/subteBuenosAires/Aestrella/ignore.cpp","tests":[{"id":1732726506289,"input":"100 5\n10 15 20 25 30\n8 3\n1 4 6\n25 2\n8 12","output":"4: 30 30 30 10\n2: 4 4\nImposible"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/sam/subteBuenosAires/Aestrella/ignore.cpp","group":"local","local":true}

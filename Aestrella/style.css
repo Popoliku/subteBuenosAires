@@ -131,3 +131,18 @@ input:focus {
     border-color: #2563eb;
     box-shadow: 0 0 0 1px #2563eb;
 }
+
+/* Toast Animations */
+#toast{
+    transition: opacity 1s ease, transform 1s ease;
+} 
+
+#toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#toast.hide{
+    opacity: 0;
+    transform: translateY(20px);
+}

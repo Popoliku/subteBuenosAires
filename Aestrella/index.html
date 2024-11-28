@@ -33,10 +33,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="flex flex-col lg:flex-row h-screen">
+<body class=" flex flex-col lg:flex-row h-screen">
+
 
     <div
-        class="bg-gradient-to-t from-blue-100 to-slate-50 bg-opacity-90 shadow-lg rounded-2xl p-4 sm:p-6 lg:p-8 w-full lg:w-1/3 h-auto lg:h-full container-animation overflow-y-auto">
+        class="relative bg-gradient-to-t from-blue-100 to-slate-50 bg-opacity-90 shadow-lg rounded-2xl p-4 sm:p-6 lg:p-8 w-full lg:w-1/3 h-auto lg:h-full container-animation overflow-y-auto">
+
 
         <div class="space-y-1">
             <!-- Header -->
@@ -45,7 +47,6 @@
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Metro de Buenos Aires Path Finder</h1>
                 <p class="text-sm sm:text-base text-gray-600">Encuentra la mejor ruta en metro</p>
             </div>
-
             <!-- Input Fields -->
             <div class="flex items-center space-x-2">
                 <img src="salida.png" class="w-3 h-3 mr-1.5">
@@ -68,7 +69,7 @@
                     <input type="text" id="end" placeholder="Estación de llegada"
                         class="p-2 sm:p-3 w-full border border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 text-sm sm:text-base">
                     <div id="endSuggestions"
-                        class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-36 overflow-y-auto z-50">
+                        class="absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg max-h-40 overflow-y-auto z-50">
                     </div>
                 </div>
             </div>
@@ -153,9 +154,9 @@
                 </p>
             </div>
 
-             <!-- Route Steps Container -->
+            <!-- Route Steps Container -->
             <div id="routeSteps" class="mt-6 space-y-4 hidden">
-          <!-- -> -->
+                <!-- -> -->
 
                 <!-- Step 2 -->
                 <div class="flex items-start space-x-3">
@@ -172,8 +173,10 @@
                                 <path
                                     d="M224 0C100.3 0 0 100.3 0 224v176c0 30.9 25.1 56 56 56h56v-64H64V224c0-88.2 71.8-160 160-160s160 71.8 160 160v168h-48v64h56c30.9 0 56-25.1 56-56V224C448 100.3 347.7 0 224 0z" />
                             </svg>
-                            <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 1</span> desde
-                                <span class="font-semibold">Estación A</span> hasta <span class="font-semibold">Estación B</span>
+                            <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 1</span>
+                                desde
+                                <span class="font-semibold">Estación A</span> hasta <span class="font-semibold">Estación
+                                    B</span>
                             </p>
                         </div>
                         <p class="text-sm text-gray-500">Duración: 10 mins | Distancia: 5 km</p>
@@ -195,7 +198,8 @@
                                 <path
                                     d="M352 144h112v112h-48V205.25L272 349.25V464h-48V314.75l-144 144V464h-48V352H0V240h48v82.75L192 178.75V48h48v149.25l144-144V48h48v96z" />
                             </svg>
-                            <p class="text-gray-800 font-medium">Transfiere a la <span class="font-semibold">Línea 2</span> en
+                            <p class="text-gray-800 font-medium">Transfiere a la <span class="font-semibold">Línea
+                                    2</span> en
                                 <span class="font-semibold">Estación B</span>
                             </p>
                         </div>
@@ -218,8 +222,10 @@
                                 <path
                                     d="M224 0C100.3 0 0 100.3 0 224v176c0 30.9 25.1 56 56 56h56v-64H64V224c0-88.2 71.8-160 160-160s160 71.8 160 160v168h-48v64h56c30.9 0 56-25.1 56-56V224C448 100.3 347.7 0 224 0z" />
                             </svg>
-                            <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 2</span> desde
-                                <span class="font-semibold">Estación B</span> hasta <span class="font-semibold">Estación D</span>
+                            <p class="text-gray-800 font-medium">Toma la <span class="font-semibold">Línea 2</span>
+                                desde
+                                <span class="font-semibold">Estación B</span> hasta <span class="font-semibold">Estación
+                                    D</span>
                             </p>
                         </div>
                         <p class="text-sm text-gray-500">Duración: 8 mins | Distancia: 6 km</p>
@@ -249,15 +255,22 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <!-- Additional steps... -->
-    </div>
+
+            <div id="toast"
+                class="absolute bottom-0 right-5 bg-green-500 text-white px-4 py-2 rounded shadow-lg hidden" role="alert">
+                Ruta calculada exitosamente.
+            </div>
+        </div>
+
     </div>
 
     <!-- Map -->
     <div id="map-container" class="flex-grow h-screen">
         <div id="map" class="h-full shadow-3xl border border-gray-300 z-10"></div>
+
     </div>
     <!-- Scripts -->
     <script src="script.js"></script>
