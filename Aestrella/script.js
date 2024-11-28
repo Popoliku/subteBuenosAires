@@ -529,18 +529,31 @@ L.polyline(routeE, { color: 'purple', weight: 6 }).addTo(map);
 
 
 
+const transboruno = [
+    [estaciones[28].lat,estaciones[28].long],
+    [estaciones[12].lat,estaciones[12].long],
+    [estaciones[0].lat,estaciones[0].long]
+]
 const transbordos = [
     [estaciones[25].lat,estaciones[25].long],
     [estaciones[30].lat,estaciones[30].long],
 
 ]
-const dos = [
-    [estaciones[28].lat,estaciones[28].long],
-    [estaciones[12].lat,estaciones[12].long],
-    [estaciones[0].lat,estaciones[0].long]
+const transbortres = [
+    [estaciones[14].lat,estaciones[14].long],
+    [estaciones[23].lat,estaciones[23].long],
 ]
+
+const transborcuatro = [
+    [estaciones[7].lat,estaciones[7].long],
+    [estaciones[1].lat,estaciones[1].long],
+    [estaciones[22].lat,estaciones[22].long]
+]
+
+L.polyline(transboruno, { color: 'white', weight: 23 }).addTo(map);
 L.polyline(transbordos, { color: 'white', weight: 23 }).addTo(map);
-L.polyline(dos, { color: 'white', weight: 23 }).addTo(map);
+L.polyline(transbortres, { color: 'white', weight: 23 }).addTo(map);
+L.polyline(transborcuatro, { color: 'white', weight: 23 }).addTo(map);
 
 // L.marker([-34.6096, -58.3730]).addTo(map).bindPopup("Plaza de Mayo");
 // L.marker([-34.6022, -58.3810]).addTo(map).bindPopup("Leandro N. Alem");
