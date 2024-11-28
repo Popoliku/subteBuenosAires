@@ -528,5 +528,11 @@ L.polyline(routeE, { color: 'purple', weight: 6 }).addTo(map);
 
 
 
+const transbordos = [
+    [estaciones[25].lat,estaciones[25].long],
+    [estaciones[30].lat,estaciones[30].long]
+]
+L.polyline(transbordos, { color: 'white', weight: 23 }).addTo(map);
+
 // L.marker([-34.6096, -58.3730]).addTo(map).bindPopup("Plaza de Mayo");
 // L.marker([-34.6022, -58.3810]).addTo(map).bindPopup("Leandro N. Alem");
