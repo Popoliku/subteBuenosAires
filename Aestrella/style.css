@@ -38,7 +38,7 @@
  }
 
  .container-animation-down{
-    animation: slideDown 0.5s ease-out;
+    animation: slideDown 1s ease-out;
  }
 
  @keyframes slideDown {
