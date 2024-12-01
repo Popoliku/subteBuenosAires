@@ -61,10 +61,12 @@ function getSeconds(x,y){
 
 /**
  * 
- * @param {*} startPoint nodo de partida
- * @param {*} endPoint    nodo meta
+ * @param {*} startPoint ID del nodo de partida
+ * @param {*} endPoint    ID del nodo meta
  * @returns debuelve el camino minimo entre startPoint y endPoint en una lista de strings empezando por la izquierda hasta la derecha
  */
+
+//
 function Astar(startPoint, endPoint) {
 
     const pq = new PriorityQueue({ comparator: (a, b) => a.w - b.w }); //w es la distancia mas cercana -> orden de prioridad
