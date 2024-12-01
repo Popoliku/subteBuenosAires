@@ -14,7 +14,7 @@ const vel = {
     "C":20.30769231,    
     "D": 24.46153846,
     "E":29.75,
-    "T":5
+    "T": 5
 }
 
 
@@ -90,8 +90,8 @@ function Astar(startPoint, endPoint) {
     minutes.set(startPoint, 0)
     parents.set(startPoint, null);
 
-    const endStation = estaciones.find(estacion => estacion.id == endPoint);
     const startStation = estaciones.find(estacion => estacion.id == startPoint);
+    const endStation = estaciones.find(estacion => estacion.id == endPoint);
 
     pq.queue(
         { node: startPoint, w: 0 + heuristic(startStation, endStation) } //node : string 
@@ -99,7 +99,7 @@ function Astar(startPoint, endPoint) {
 
     while (pq.length != 0 ) {
         //desencola y anade al path 
-        const {node: currentNode,w: w} = pq.dequeue();
+        const {node: currentNode,w: currentW} = pq.dequeue();
 
         if (currentNode === endPoint) {
             break;
@@ -115,17 +115,18 @@ function Astar(startPoint, endPoint) {
             const v = node.id;
             const u = currentNode;
 
+
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
             const weight = getMinutes(origin, dest);
-            if (!minutes.has(v)) minutes.set(v, INF);
 
-            if (minutes.get(u) + weight < minutes.get(v)) {
+            if (!minutes.has(v) || minutes.get(u) + weight < minutes.get(v)) {
                 minutes.set(v, minutes.get(u) + weight);
                 pq.queue({ node: v, w: minutes.get(v) + heuristic(dest, endStation) }); //f(n) = g(n) + h(n)
                 parents.set(v, u);
             }
+            
         });
     }
     
