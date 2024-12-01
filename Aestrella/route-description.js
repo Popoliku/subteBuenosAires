@@ -61,10 +61,15 @@ function showRoute(ruta) {
         }
 
         // Add the step description
-        if (index == 0 || (estacion_previa && estacion_previa.linea!=station.linea)) {
+        if (index == 0) {
             const stepDescription = document.createElement("p");
             stepDescription.classList.add("text-gray-800", "font-medium");
             stepDescription.innerHTML = `Camina hasta la estación <span class="font-semibold">${station.estacion}</span>`;
+            topLineDiv.appendChild(stepDescription);
+        }else if(estacion_previa && estacion_previa.linea!=station.linea){
+            const stepDescription = document.createElement("p");
+            stepDescription.classList.add("text-gray-800", "font-medium");
+            stepDescription.innerHTML = `Haz un trasbordo a la <span class="font-semibold">línea ${station.linea}</span>`;
             topLineDiv.appendChild(stepDescription);
         } else {
             const stepDescription = document.createElement("p");
