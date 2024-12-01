@@ -42,7 +42,7 @@ function showRoute(ruta) {
         topLineDiv.classList.add("flex", "items-center", "space-x-2");
 
         // Add the walking icon if first station
-        if (index == 0) {
+        if (index == 0 || (estacion_previa && estacion_previa.linea!=station.linea)) {
             const walkingIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             walkingIcon.setAttribute("class", "w-6 h-6 text-gray-600");
             walkingIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
@@ -61,7 +61,7 @@ function showRoute(ruta) {
         }
 
         // Add the step description
-        if (index == 0) {
+        if (index == 0 || (estacion_previa && estacion_previa.linea!=station.linea)) {
             const stepDescription = document.createElement("p");
             stepDescription.classList.add("text-gray-800", "font-medium");
             stepDescription.innerHTML = `Camina hasta la estación <span class="font-semibold">${station.estacion}</span>`;
