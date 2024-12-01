@@ -219,19 +219,29 @@ const graph = new Map();
 estaciones.forEach(estacion => {
     let adyacentes = estaciones.filter(station => (estacion.linea == station.linea) &&
         (station.id == estacion.id - 1 || station.id == estacion.id + 1));
+
+        //Carlos pellegrini,9 julio, diagonal norte
     if (estacion.id == 8.0) adyacentes.push(estaciones[22],estaciones[1]);
     if (estacion.id == 2.0) adyacentes.push(estaciones[7], estaciones[22]);
     if (estacion.id == 23.0) adyacentes.push(estaciones[1], estaciones[7]);
 
+    
+    //Lima, avenida de mayo
     if (estacion.id == 15.0) adyacentes.push(estaciones[23]);
     if (estacion.id == 24.0) adyacentes.push(estaciones[14]);
 
+
+    //bolicar,Peru,Catedral
     if (estacion.id == 13.0) adyacentes.push(estaciones[0], estaciones[28]);
     if (estacion.id == 1.0) adyacentes.push(estaciones[12], estaciones[28]);
     if (estacion.id == 29.0) adyacentes.push(estaciones[0], estaciones[12]);
 
+
+    //Independencia
     if (estacion.id == 26.0) adyacentes.push(estaciones[30]);
     if (estacion.id == 31.0) adyacentes.push(estaciones[25]);
+
+
     graph.set(estacion.id, adyacentes)
 });
 
