@@ -12,9 +12,10 @@ var rad = function (x) {
  * @param {*} endNode meta o destino
  * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
  */
+const max_speed = Math.max(...Object.values(vel));
 function heuristic(currentNode, endNode){
     var d = getDistance(currentNode, endNode);
-    const seconds = ((d) / (vel[currentNode.linea] * (1000 / 3600)));
+    const seconds = ((d) / (max_speed * (1000 / 3600)));
     return (seconds/60);
 }
 /**
@@ -92,9 +93,13 @@ function Astar(startPoint, endPoint) {
         { node: startPoint, w: 0 + heuristic(startStation, endStation) } //node : string 
     );
 
-    while (pq.length != 0 && pq.peek().node !== endPoint) {
+    while (pq.length != 0 ) {
         //desencola y anade al path 
         const {node: currentNode,w: w} = pq.dequeue();
+
+        if (currentNode === endPoint) {
+            break;
+        }
 
         if (visited.has(currentNode)) continue; //si ha sido visitado continua a la sigiente iteracion. 
         visited.add(currentNode);
@@ -109,12 +114,12 @@ function Astar(startPoint, endPoint) {
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = getMinutes(origin, dest);
+            const weight = getMinutes(origin, dest);
             if (!minutes.has(v)) minutes.set(v, INF);
 
-            if (minutes.get(u) + w < minutes.get(v)) {
-                minutes.set(v, minutes.get(u) + w);
-                pq.queue({ node: v, w: minutes.get(v) + heuristic(origin, endStation) }); //f(n) = g(n) + h(n)
+            if (minutes.get(u) + weight < minutes.get(v)) {
+                minutes.set(v, minutes.get(u) + weight);
+                pq.queue({ node: v, w: minutes.get(v) + heuristic(dest, endStation) }); //f(n) = g(n) + h(n)
                 console.log(heuristic(origin,endStation));
                 parents.set(v, u);
             }
