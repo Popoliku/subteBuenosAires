@@ -67,14 +67,14 @@ function Astar(startPoint, endPoint) {
 
     const pq = new PriorityQueue({ comparator: (a, b) => a.w - b.w }); //w es la distancia mas cercana -> orden de prioridad
     const visited = new Set();
-    const distance = new Map();
+    const minutes = new Map();
     const parents = new Map();
 
     pq.queue(
         { node: startPoint, w: 0 + heuristic(startPoint, endPoint) } //node : string 
     );
 
-    distance.set(startPoint, 0)
+    minutes.set(startPoint, 0)
     parents.set(startPoint, null);
 
     const endStation = estaciones.find(estacion => estacion.id == endPoint);
@@ -98,12 +98,11 @@ function Astar(startPoint, endPoint) {
             
             const w = getMinutes(origin, dest);
 
+            if (!minutes.has(v)) minutes.set(v, INF);
 
-            if (!distance.has(v)) distance.set(v, INF);
-
-            if (distance.get(u) + w < distance.get(v)) {
-                distance.set(v, distance.get(u) + w);
-                pq.queue({ node: v, w: distance.get(v) + heuristic(origin, endStation) }); //f(n) = g(n) + h(n)
+            if (minutes.get(u) + w < minutes.get(v)) {
+                minutes.set(v, minutes.get(u) + w);
+                pq.queue({ node: v, w: minutes.get(v) + heuristic(origin, endStation) }); //f(n) = g(n) + h(n)
                 parents.set(v, u);
             }
         });
