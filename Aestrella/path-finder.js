@@ -13,7 +13,7 @@ var rad = function (x) {
  * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
  */
 function heuristic(currentNode, endNode){
-    return calcDistance(currentNode, endNode);
+    return getSeconds(currentNode, endNode);
 }
 
 /**
@@ -48,10 +48,15 @@ function calcDistance(x, y) {
     return d;
 }
 
+
 function getMinutes(x,y){
+    return getSeconds(x,y) / 60;
+}
+
+function getSeconds(x,y){
     var d = getDistance(x, y);
-    const minutos = ((d) / (vel[x.linea] * (1000 / 3600))) / 60;
-    return minutos;
+    const seconds = ((d) / (vel[x.linea] * (1000 / 3600)));
+    return seconds;
 }
 
 /**
@@ -62,23 +67,27 @@ function getMinutes(x,y){
  */
 function Astar(startPoint, endPoint) {
 
-    const pq = new PriorityQueue({ comparator: (a, b) => b.w - a.w }); //w es la distancia mas cercana -> orden de prioridad
+    const pq = new PriorityQueue({ comparator: (a, b) => a.w - b.w }); //w es la distancia mas cercana -> orden de prioridad
     const visited = new Set();
     const minutes = new Map();
     const parents = new Map();
 
-    pq.queue(
-        { node: startPoint, w: 0 + heuristic(startPoint, endPoint) } //node : string 
-    );
-
+  
     minutes.set(startPoint, 0)
     parents.set(startPoint, null);
 
     const endStation = estaciones.find(estacion => estacion.id == endPoint);
+    const startStation = estaciones.find(estacion => estacion.id == startPoint);
+
+    pq.queue(
+        { node: startPoint, w: 0 + heuristic(startStation, endStation) } //node : string 
+    );
 
     while (pq.length != 0 && pq.peek().node !== endPoint) {
         //desencola y anade al path 
-        const currentNode = pq.dequeue().node;
+        const {node: currentNode,w: w} = pq.dequeue();
+
+        console.log("PESOOOOO",w);
 
         if (visited.has(currentNode)) continue; //si ha sido visitado continua a la sigiente iteracion. 
         visited.add(currentNode);
@@ -94,7 +103,6 @@ function Astar(startPoint, endPoint) {
             const dest=estaciones.find(estacion => estacion.id == v);
             
             const w = getMinutes(origin, dest);
-
             if (!minutes.has(v)) minutes.set(v, INF);
 
             if (minutes.get(u) + w < minutes.get(v)) {

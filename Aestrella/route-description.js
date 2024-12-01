@@ -42,7 +42,6 @@ function showRoute(ruta) {
         topLineDiv.classList.add("flex", "items-center", "space-x-2");
 
         // Add the walking icon if first station
-        console.log("index: ", size);
         if (index == 0) {
             const walkingIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             walkingIcon.setAttribute("class", "w-6 h-6 text-gray-600");
@@ -70,7 +69,6 @@ function showRoute(ruta) {
         } else {
             const stepDescription = document.createElement("p");
             stepDescription.classList.add("text-gray-800", "font-medium");
-            console.log("estacion_previa estacion", estacion_previa.estacion);
 
             stepDescription.innerHTML = `Toma la  <span class="font-semibold"> linea ${station.linea}</span> desde <span class="font-semibold"> ${estacion_previa.estacion} </span> hasta <span class="font-semibold" >${station.estacion}</span>`;
             topLineDiv.appendChild(stepDescription);
@@ -85,14 +83,12 @@ function showRoute(ruta) {
         const bottomLine = document.createElement("p");
         bottomLine.classList.add("text-sm", "text-gray-500");
 
-        console.log(estacion_previa, station);
         var minutos = 0
         var distancia = 0
         if (estacion_previa) {
             minutos = getMinutes(estacion_previa, station);
             distancia = calcDistance(estacion_previa, station);
             if (estacion_previa.linea !== station.linea) {
-                console.log("===============> ", estacion_previa.linea, station.linea);
                 transbordos++;
             }
         }
@@ -109,7 +105,6 @@ function showRoute(ruta) {
 
         steps.appendChild(stepDiv);
         estacion_previa = station;
-        console.log("estacion_previa", estacion_previa);
     });
     pathResult(total_time, total_distance, transbordos);
 }
@@ -117,15 +112,11 @@ function showRoute(ruta) {
 function pathResult(total_time, total_distance, transbordos) {
     const result = document.getElementById("routeSummary");
     result.classList.remove("hidden");
-    console.log("total_distance", total_distance);
-    console.log("total_time", total_time);
-    console.log("transbordos", transbordos);
 
     const distancia = document.getElementById("distancia");
     const tiempo = document.getElementById("duracion");
     const transb = document.getElementById("transbordos");
 
-    console.log(distancia);
     distancia.innerHTML = `Distancia del viaje: <span class="font-semibold">${(total_distance / 1000).toFixed(2)} km </span>`;
     tiempo.innerHTML = `Tiempo de viaje:  <span class="font-semibold">${Math.ceil(total_time)} mins </span>`;
     transb.innerHTML = `Transbordos:  <span class="font-semibold"> ${transbordos} </span>`;
