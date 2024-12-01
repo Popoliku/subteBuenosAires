@@ -109,7 +109,7 @@ function showRoute(ruta) {
 
         total_distance += distancia;
         total_time += minutos;
-        bottomLine.textContent = `Duración: ${Math.ceil(minutos)} mins | Distancia: ${distancia.toFixed(0)} m`;
+        bottomLine.textContent = `Duración: ${(minutos.toFixed(2))} mins | Distancia: ${distancia.toFixed(0)} m`;
         contentDiv.appendChild(bottomLine);
 
         // Combine everything into the main step div
@@ -131,7 +131,7 @@ function pathResult(total_time, total_distance, transbordos) {
     const transb = document.getElementById("transbordos");
 
     distancia.innerHTML = `Distancia del viaje: <span class="font-semibold">${(total_distance / 1000).toFixed(2)} km </span>`;
-    tiempo.innerHTML = `Tiempo de viaje:  <span class="font-semibold">${Math.ceil(total_time)} mins </span>`;
+    tiempo.innerHTML = `Tiempo de viaje:  <span class="font-semibold">${(total_time.toFixed(2))} mins </span>`;
     transb.innerHTML = `Transbordos:  <span class="font-semibold"> ${transbordos} </span>`;
 
 
