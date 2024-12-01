@@ -44,18 +44,15 @@ const vel = {
 
 //Debug function
 function calcDistance(x, y) {
-    console.log(x, y);
     var d = getDistance(x, y);
-    const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
     return d;
 }
 
 function getMinutes(x,y){
     var d = getDistance(x, y);
-    const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
+    const minutos = ((d) / (vel[x.linea] * (1000 / 3600))) / 60;
     return minutos;
 }
-
 
 /**
  * 
@@ -65,7 +62,7 @@ function getMinutes(x,y){
  */
 function Astar(startPoint, endPoint) {
 
-    const pq = new PriorityQueue({ comparator: (a, b) => a.w - b.w }); //w es la distancia mas cercana -> orden de prioridad
+    const pq = new PriorityQueue({ comparator: (a, b) => b.w - a.w }); //w es la distancia mas cercana -> orden de prioridad
     const visited = new Set();
     const minutes = new Map();
     const parents = new Map();
