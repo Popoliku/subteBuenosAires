@@ -46,21 +46,15 @@ const vel = {
 function calcDistance(x, y) {
     console.log(x, y);
     var d = getDistance(x, y);
-    // console.log("Desde ", x.estacion, " hasta ", y.estacion, " la distancia es => ", d);
     const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
-    // console.log("Tiempo desde",x.estacion," hasta ", y.estacion, " es => ", minutos, " minutos");
     return d;
 }
 
 function getMinutes(x,y){
     var d = getDistance(x, y);
     const minutos = 60 * ( (d/1000) / (vel[x.linea]) );
-    // console.log("minutos", minutos);
-    // console.log("distancia",d);
     return minutos;
 }
-
-
 
 
 /**
@@ -77,7 +71,7 @@ function Astar(startPoint, endPoint) {
     const parents = new Map();
 
     pq.queue(
-        { node: startPoint, w: heuristic(startPoint, endPoint) } //node : string 
+        { node: startPoint, w: 0 + heuristic(startPoint, endPoint) } //node : string 
     );
 
     distance.set(startPoint, 0)
@@ -86,7 +80,7 @@ function Astar(startPoint, endPoint) {
     const endStation = estaciones.find(estacion => estacion.id == endPoint);
 
     while (pq.length != 0 && pq.peek().node !== endPoint) {
-        //desencola y aÃ±ade al path 
+        //desencola y anade al path 
         const currentNode = pq.dequeue().node;
 
         if (visited.has(currentNode)) continue; //si ha sido visitado continua a la sigiente iteracion. 
@@ -99,12 +93,12 @@ function Astar(startPoint, endPoint) {
             const v = node.id;
             const u = currentNode;
 
-
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);
             
-            const w = calcDistance(origin, dest);
-            // console.log("W: " + w);
+            const w = getMinutes(origin, dest);
+
+
             if (!distance.has(v)) distance.set(v, INF);
 
             if (distance.get(u) + w < distance.get(v)) {
@@ -113,7 +107,9 @@ function Astar(startPoint, endPoint) {
                 parents.set(v, u);
             }
         });
-    }//genera el camino minimo en path
+    }
+    
+    //genera el camino minimo en path
     let path = [];
     let currentNode = endPoint;
 
@@ -122,13 +118,6 @@ function Astar(startPoint, endPoint) {
         currentNode = parents.get(currentNode);
     }
 
-    let total=0;
-    for(let i = 0; i<path.length - 1; i++){
-        const origin=estaciones.find(estacion => estacion.id == path[i]);
-        const dest=estaciones.find(estacion => estacion.id == path[i+1]);
-        total += getMinutes(origin,dest);
-    }
-    console.log("tiempo total: " + total);
     return path;
 }
 
