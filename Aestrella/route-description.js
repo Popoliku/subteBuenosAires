@@ -42,7 +42,7 @@ function showRoute(ruta) {
         topLineDiv.classList.add("flex", "items-center", "space-x-2");
 
         // Add the walking icon if first station
-        if (index == 0 || (estacion_previa && estacion_previa.linea!=station.linea)) {
+        if (index == 0) {
             const walkingIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             walkingIcon.setAttribute("class", "w-6 h-6 text-gray-600");
             walkingIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
@@ -50,7 +50,15 @@ function showRoute(ruta) {
             walkingIcon.setAttribute("viewBox", "0 0 320 512");
             walkingIcon.innerHTML = `<path d="M208 96a48 48 0 1 0-96 0 48 48 0 1 0 96 0zM73.1 364.7L64 480c-1.7 22.1 15.6 32 30.1 32 14.5 0 27.4-9.4 30.1-24l14.3-85.7L192 384v112c0 16 13.4 32 30.1 32 16.8 0 30.1-13.4 30.1-30.1V366c0-14.7-7.1-28.5-19.1-37l-65.7-47.5 12.6-63.8c32.5 49.6 79.4 86.5 130.9 86.5 16.8 0 30.1-13.4 30.1-30.1s-13.4-30.1-30.1-30.1c-39.3 0-75.3-26.7-101.1-67.5L145.5 121c-12-17.1-30.5-25-49-25-19.6 0-39.1 9.6-49.9 28.4L5.6 223.6c-9.3 15.7-4.2 35.8 11.5 45.1s35.8 4.2 45.1-11.5l33.1-55.7 27.7 39.1-26.6 133.8z"/>`;
             topLineDiv.appendChild(walkingIcon);
-        } else {
+        }else if(estacion_previa && estacion_previa.linea!=station.linea){
+            const exchangeIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            exchangeIcon.setAttribute("class", "w-6 h-6 text-indigo-600");
+            exchangeIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            exchangeIcon.setAttribute("viewBox", "0 0 512 512");
+            exchangeIcon.setAttribute("fill","currentColor");
+            exchangeIcon.innerHTML = `<path d="M0 168v-16c0-13.3 10.7-24 24-24h360V80c0-21.4 25.9-32 41-17l80 80c9.4 9.4 9.4 24.6 0 33.9l-80 80C410 272 384 261.5 384 240v-48H24c-13.3 0-24-10.7-24-24zm488 152H128v-48c0-21.3-25.9-32.1-41-17l-80 80c-9.4 9.4-9.4 24.6 0 33.9l80 80C102.1 464 128 453.4 128 432v-48h360c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24z"/>`;
+            topLineDiv.appendChild(exchangeIcon);
+        }else {
             const metroIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             metroIcon.setAttribute("class", "w-6 h-6 text-blue-600");
             metroIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
