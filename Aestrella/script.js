@@ -524,8 +524,6 @@ const routeC = [
     [estaciones[25].lat, estaciones[25].long],
     [estaciones[26].lat, estaciones[26].long],
     [estaciones[27].lat, estaciones[27].long],
-
-
 ];
 
 L.polyline(routeC, { color: 'blue', weight: 6 }).addTo(map);
