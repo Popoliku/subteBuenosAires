@@ -13,7 +13,7 @@ var rad = function (x) {
  * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
  */
 function heuristic(currentNode, endNode){
-    return getMinutes(currentNode, endNode);
+    return getMinutes(currentNode, endNode,true);
 }
 
 /**
@@ -55,9 +55,9 @@ function getMinutes(x,y){
 }
 
 function getSeconds(x,y){
-    var d = getDistance(x, y);
+    var d = getDistance(x, y,heuristic);
     var seconds = 0;
-    if(x.linea==y.linea) {
+    if(x.linea==y.linea || heuristic) {
         seconds = ((d) / (vel[x.linea] * (1000 / 3600)));
     }
     else{
@@ -113,7 +113,8 @@ function Astar(startPoint, endPoint) {
 
             if (minutes.get(u) + w < minutes.get(v)) {
                 minutes.set(v, minutes.get(u) + w);
-                pq.queue({ node: v, w: minutes.get(v) + heuristic(origin, endStation) }); //f(n) = g(n) + h(n)
+                pq.queue({ node: v, w: minutes.get(v) + heuristic(origin, endStation,false) }); //f(n) = g(n) + h(n)
+                console.log(heuristic(origin,endStation,false));
                 parents.set(v, u);
             }
         });
