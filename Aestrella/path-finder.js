@@ -13,7 +13,7 @@ var rad = function (x) {
  * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
  */
 function heuristic(currentNode, endNode){
-    return getSeconds(currentNode, endNode);
+    return getMinutes(currentNode, endNode);
 }
 
 /**
