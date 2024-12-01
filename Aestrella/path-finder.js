@@ -39,7 +39,8 @@ const vel = {
     "B":30.7826087,
     "C":20.30769231,
     "D": 24.46153846,
-    "E":29.75
+    "E":29.75,
+    "T":5
 }
 
 //Debug function
@@ -55,7 +56,12 @@ function getMinutes(x,y){
 
 function getSeconds(x,y){
     var d = getDistance(x, y);
-    const seconds = ((d) / (vel[x.linea] * (1000 / 3600)));
+    if(x.linea==y.linea) {
+        const seconds = ((d) / (vel[x.linea] * (1000 / 3600)));
+    }
+    else{
+        const seconds = ((d) / (vel["T"] * (1000 / 3600)));
+    } 
     return seconds;
 }
 
