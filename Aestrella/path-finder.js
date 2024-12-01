@@ -120,7 +120,6 @@ function Astar(startPoint, endPoint) {
             if (minutes.get(u) + weight < minutes.get(v)) {
                 minutes.set(v, minutes.get(u) + weight);
                 pq.queue({ node: v, w: minutes.get(v) + heuristic(dest, endStation) }); //f(n) = g(n) + h(n)
-                console.log(heuristic(origin,endStation));
                 parents.set(v, u);
             }
         });
