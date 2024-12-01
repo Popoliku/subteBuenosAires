@@ -56,11 +56,12 @@ function getMinutes(x,y){
 
 function getSeconds(x,y){
     var d = getDistance(x, y);
+    var seconds = 0;
     if(x.linea==y.linea) {
-        const seconds = ((d) / (vel[x.linea] * (1000 / 3600)));
+        seconds = ((d) / (vel[x.linea] * (1000 / 3600)));
     }
     else{
-        const seconds = ((d) / (vel["T"] * (1000 / 3600)));
+        seconds = ((d) / (vel["T"] * (1000 / 3600)));
     } 
     return seconds;
 }
@@ -80,7 +81,6 @@ function Astar(startPoint, endPoint) {
     const minutes = new Map();
     const parents = new Map();
 
-  
     minutes.set(startPoint, 0)
     parents.set(startPoint, null);
 
@@ -94,8 +94,6 @@ function Astar(startPoint, endPoint) {
     while (pq.length != 0 && pq.peek().node !== endPoint) {
         //desencola y anade al path 
         const {node: currentNode,w: w} = pq.dequeue();
-
-        console.log("PESOOOOO",w);
 
         if (visited.has(currentNode)) continue; //si ha sido visitado continua a la sigiente iteracion. 
         visited.add(currentNode);
@@ -129,7 +127,6 @@ function Astar(startPoint, endPoint) {
         path.unshift(currentNode);
         currentNode = parents.get(currentNode);
     }
-
     return path;
 }
 
