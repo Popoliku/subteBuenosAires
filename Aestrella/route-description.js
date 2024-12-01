@@ -9,7 +9,7 @@ function showRoute(ruta) {
     steps.classList.remove("hidden");
     steps.innerHTML = "";
 
-    console.log(route);
+    // console.log(route);
     const size = route.length;
     var estacion_previa;
 

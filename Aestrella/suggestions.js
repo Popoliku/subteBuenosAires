@@ -39,10 +39,10 @@ const stations = [
 function setupAutocomplete(inputId, suggestionsId) {
     const input = document.getElementById(inputId);
     const suggestionsBox = document.getElementById(suggestionsId);
-    console.log(suggestionsBox); // Should log the input element
+    // console.log(suggestionsBox); // Should log the input element
     
 
-    console.log("HIHI");
+    // console.log("HIHI");
     input.addEventListener('input', handler)
     input.addEventListener('click', handler)
 
@@ -89,7 +89,6 @@ function setupAutocomplete(inputId, suggestionsId) {
     
     document.addEventListener('click', (e) => {
         closeSelect(e);
-        console.log("clock");
     });
 }
 

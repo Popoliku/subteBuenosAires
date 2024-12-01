@@ -63,13 +63,10 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
     var mockPath = `Camino óptimo desde ${startStation} a ${endStation} es:.`;
 
-    // jiji(a,b);
-    console.log(a.id, b.id);
     const path = Astar(a.id, b.id);
     route = [];
 
 
-    console.log("Camino optimo es: ")
     var camino = "";
     var first = true;
     for (var x in path) {
@@ -133,7 +130,6 @@ document.getElementById("findPathBtn").addEventListener("click", () => {
 
 });
 
-console.log("Script loaded");
 
 
 //MAPA
@@ -245,7 +241,6 @@ estaciones.forEach(estacion => {
     graph.set(estacion.id, adyacentes)
 });
 
-console.log(graph)
 
 
 
@@ -425,7 +420,7 @@ function handler(inputField, markerGroup) {
 
     if (hihihaha) hihihaha.forEach(marca => map.removeLayer(marca));
 
-    console.log(`Input changed for: ${inputField.id}`);
+    // console.log(`Input changed for: ${inputField.id}`);
 
     // Clear markers only for this input
     markerGroup.forEach(marker => map.removeLayer(marker));
@@ -433,7 +428,6 @@ function handler(inputField, markerGroup) {
 
     const inputValue = inputField.value.trim().toLowerCase(); // Normalize input value
     if (!inputValue) {
-        console.log("Input field is empty, no action taken.");
         return;
     }
 
@@ -457,9 +451,8 @@ function handler(inputField, markerGroup) {
         matchedStation = estaciones.find(estacion =>
             estacion.id == 31);
     }
-    console.log(matchedStation);
     if (matchedStation) {
-        console.log(`Station found: ${matchedStation.estacion} con id ${matchedStation.id} `);
+        // console.log(`Station found: ${matchedStation.estacion} con id ${matchedStation.id} `);
         const selected = L.divIcon({
             className: 'custom-div-icon marker-grow',
             html: `<div class="marker-grow animate-grow" style="
