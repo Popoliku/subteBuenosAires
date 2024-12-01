@@ -6,13 +6,25 @@ var rad = function (x) {
     return x * Math.PI / 180;
 };
 
+
+
+const vel = {
+    "A":28.17391304,
+    "B":30.7826087,
+    "C":20.30769231,    
+    "D": 24.46153846,
+    "E":29.75,
+    "T":5
+}
+
+
+const max_speed = Math.max(...Object.values(vel));
 /**
  * 
  * @param {*} currentNode nodo en el que se encuentra el algoritmo en ese momento
  * @param {*} endNode meta o destino
  * @returns el valor de retorno es la distancia aerea entre currentNode y endNode 
  */
-const max_speed = Math.max(...Object.values(vel));
 function heuristic(currentNode, endNode){
     var d = getDistance(currentNode, endNode);
     const seconds = ((d) / (max_speed * (1000 / 3600)));
@@ -36,14 +48,6 @@ var getDistance = function (p1, p2) {
     return d;
 };
 
-const vel = {
-    "A":28.17391304,
-    "B":30.7826087,
-    "C":20.30769231,    
-    "D": 24.46153846,
-    "E":29.75,
-    "T":5
-}
 
 //Debug function
 function calcDistance(x, y) {
