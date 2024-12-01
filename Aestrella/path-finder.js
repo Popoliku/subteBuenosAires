@@ -18,7 +18,7 @@ const vel = {
 }
 
 
-const max_speed = Math.min(...Object.values(vel));
+const max_speed = Math.max(...Object.values(vel));
 /**
  * 
  * @param {*} currentNode nodo en el que se encuentra el algoritmo en ese momento
@@ -114,6 +114,7 @@ function Astar(startPoint, endPoint) {
         adjacentList.forEach((node) => {
             const v = node.id;
             const u = currentNode;
+
 
             const origin=estaciones.find(estacion => estacion.id == u);
             const dest=estaciones.find(estacion => estacion.id == v);

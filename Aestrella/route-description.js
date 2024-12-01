@@ -131,7 +131,7 @@ function pathResult(total_time, total_distance, transbordos) {
     const transb = document.getElementById("transbordos");
 
     distancia.innerHTML = `Distancia del viaje: <span class="font-semibold">${(total_distance / 1000).toFixed(2)} km </span>`;
-    tiempo.innerHTML = `Tiempo de viaje:  <span class="font-semibold">${total_time.toFixed(1)} mins </span>`;
+    tiempo.innerHTML = `Tiempo de viaje:  <span class="font-semibold">${total_time.toFixed(2)} mins </span>`;
     transb.innerHTML = `Transbordos:  <span class="font-semibold"> ${transbordos} </span>`;
 
 
