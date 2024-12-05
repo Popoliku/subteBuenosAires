@@ -102,7 +102,7 @@ function Astar(startPoint, endPoint) {
         const {node: currentNode,w: currentW} = pq.dequeue();
 
         if (currentNode === endPoint) {
-            break;
+                break;
         }
 
         if (visited.has(currentNode)) continue; //si ha sido visitado continua a la sigiente iteracion. 

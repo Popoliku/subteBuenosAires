@@ -219,7 +219,7 @@ estaciones.forEach(estacion => {
     //Carlos pellegrini,9 julio, diagonal norte
     if (estacion.id == 8.0) adyacentes.push(estaciones[1]);
     if (estacion.id == 2.0) adyacentes.push(estaciones[7], estaciones[22]);
-    if (estacion.id == 23.0) adyacentes.push(estaciones[1]);
+    if (estacion.id == 23.0) adyacentes.push(estaciones[1],estaciones[7]);
 
     
     //Lima, avenida de mayo
